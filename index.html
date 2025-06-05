@@ -2646,48 +2646,106 @@
 
         // 홈(랜딩) 표시
         function showHome() {
-            document.getElementById('main-page').style.display = 'block';
+            // 모든 서비스 상세페이지 및 프로필 페이지 숨기기
             document.querySelectorAll('.service-detail').forEach(detail => {
                 detail.classList.remove('active');
+                detail.style.display = 'none';
             });
+            
+            // 메인 페이지 표시
+            const mainPage = document.getElementById('main-page');
+            if (mainPage) {
+                mainPage.style.display = 'block';
+            }
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // 프로필 페이지 표시
         function showProfile() {
-            document.getElementById('main-page').style.display = 'none';
+            // 메인 페이지 숨기기
+            const mainPage = document.getElementById('main-page');
+            if (mainPage) {
+                mainPage.style.display = 'none';
+            }
+            
+            // 모든 서비스 상세페이지 숨기기
             document.querySelectorAll('.service-detail').forEach(detail => {
                 detail.classList.remove('active');
+                detail.style.display = 'none';
             });
-            document.getElementById('profile-page').classList.add('active');
+            
+            // 프로필 페이지 표시
+            const profilePage = document.getElementById('profile-page');
+            if (profilePage) {
+                profilePage.classList.add('active');
+                profilePage.style.display = 'block';
+            }
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // 서비스 섹션으로 이동
         function goToServices() {
-            // 메인 페이지 표시
-            document.getElementById('main-page').style.display = 'block';
+            console.log('goToServices() 함수 호출됨');
+            
+            // 모든 서비스 상세페이지 및 프로필 페이지 숨기기
             document.querySelectorAll('.service-detail').forEach(detail => {
                 detail.classList.remove('active');
+                detail.style.display = 'none';
             });
             
-            // 서비스 섹션으로 스크롤
+            // 메인 페이지 표시
+            const mainPage = document.getElementById('main-page');
+            if (mainPage) {
+                mainPage.style.display = 'block';
+                console.log('메인 페이지 표시됨');
+            }
+            
+            // 서비스 섹션으로 스크롤 (더 긴 지연시간)
             setTimeout(() => {
                 const servicesSection = document.getElementById('services');
                 if (servicesSection) {
-                    servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    console.log('서비스 섹션으로 스크롤 시작');
+                    // 먼저 페이지 상단으로 이동
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                    // 그 다음 서비스 섹션으로 스크롤
+                    setTimeout(() => {
+                        servicesSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start',
+                            inline: 'nearest' 
+                        });
+                        console.log('서비스 섹션으로 스크롤 완료');
+                    }, 200);
+                } else {
+                    console.error('서비스 섹션을 찾을 수 없음');
                 }
-            }, 100);
+            }, 300);
         }
 
         // 서비스 상세페이지 표시
         function showServiceDetail(serviceNumber) {
-            document.getElementById('main-page').style.display = 'none';
+            // 메인 페이지 숨기기
+            const mainPage = document.getElementById('main-page');
+            if (mainPage) {
+                mainPage.style.display = 'none';
+            }
+            
+            // 모든 서비스 상세페이지 및 프로필 페이지 숨기기
             document.querySelectorAll('.service-detail').forEach(detail => {
                 detail.classList.remove('active');
+                detail.style.display = 'none';
             });
+            
+            // 선택한 서비스 상세페이지 표시
             const targetId = `service-${serviceNumber}`;
-            document.getElementById(targetId).classList.add('active');
+            const targetPage = document.getElementById(targetId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                targetPage.style.display = 'block';
+            }
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
