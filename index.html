@@ -32,6 +32,7 @@
             background: var(--black);
             overflow-x: hidden;
             position: relative;
+            scroll-behavior: smooth;
         }
 
         @font-face {
@@ -652,6 +653,16 @@
             .back-button {
                 left: 20px;
             }
+            .hero-cta {
+                margin: 10px 5px;
+                padding: 15px 25px;
+                font-size: 1rem;
+            }
+            .contact .hero-cta {
+                margin: 10px 5px;
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -699,7 +710,10 @@
             <div class="hero-content fade-in">
                 <h1 class="hero-title">AI로 혁신하는<br>비즈니스 성장 파트너</h1>
                 <p class="hero-subtitle">Business Model Zen 방법론을 통한 체계적인 비즈니스 혁신</p>
-                <a href="#services" class="hero-cta">서비스 살펴보기</a>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+                    <a href="#services" class="hero-cta">서비스 살펴보기</a>
+                    <a href="#contact" class="hero-cta" style="background: var(--secondary); box-shadow: 0 10px 30px rgba(255, 138, 101, 0.3);">📞 무료 상담 신청</a>
+                </div>
             </div>
         </section>
 
@@ -733,12 +747,12 @@
                             <img src="./images/2정책자금.png?v=2025" alt="정책자금 활용" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
                         </div>
                         <h3 class="service-title">💰 정책자금 활용 자문</h3>
-                        <p class="service-description">💎 정부 정책자금을 확실하게 확보하세요</p>
+                        <p class="service-description">💎 사업전환자금·구조개선자금 전문 컨설팅</p>
                         <ul class="service-features">
-                            <li class="service-feature">운영자금 부족으로 사업 확장 어려움 해소</li>
+                            <li class="service-feature" style="color: #f093fb; font-weight: 700;">🔥 사업전환자금 신청 전문 지원</li>
+                            <li class="service-feature" style="color: #f093fb; font-weight: 700;">🔥 구조개선자금 확보 전문 컨설팅</li>
                             <li class="service-feature">정책자금 정보 부족·복잡한 신청 절차 지원</li>
                             <li class="service-feature">낮은 선정 확률 개선 · 시간 낭비 최소화</li>
-                            <li class="service-feature">신청 기회 놓침 방지</li>
                         </ul>
                         <a href="#" class="service-cta">자세히 보기 →</a>
                     </div>
@@ -749,10 +763,10 @@
                             <img src="./images/3경매공장구매.png?v=2025" alt="경매활용 공장구매" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
                         </div>
                         <h3 class="service-title">🏭 경매활용 공장구매 컨설팅</h3>
-                        <p class="service-description">⚡ 전략적 경매 투자로 공장 부지를 확보하세요</p>
+                        <p class="service-description">⚡ 공장입지분석·투자사업타당성분석 전문 컨설팅</p>
                         <ul class="service-features">
-                            <li class="service-feature">높은 부지 가격으로 인한 비용 절감</li>
-                            <li class="service-feature">적정 위치·규모 부지 발굴</li>
+                            <li class="service-feature" style="color: #4facfe; font-weight: 700;">🔥 공장입지분석 전문 컨설팅</li>
+                            <li class="service-feature" style="color: #4facfe; font-weight: 700;">🔥 투자사업타당성분석 완전 대행</li>
                             <li class="service-feature">경매 전문 지식 부족 보완</li>
                             <li class="service-feature">법적 절차·권리 분석 부담 경감</li>
                         </ul>
@@ -830,7 +844,41 @@
         <section class="contact" id="contact">
             <h2 class="contact-title">지금 바로 시작하세요</h2>
             <p class="contact-info">전문 컨설턴트가 귀사의 성장을 도와드립니다</p>
-            <a href="tel:010-9251-9743" class="contact-cta">무료 상담 신청하기</a>
+            
+            <!-- 상세 연락처 정보 -->
+            <div style="max-width: 800px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <!-- 전화 연락처 -->
+                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; text-align: center; border: 2px solid var(--primary); transition: all 0.3s ease;"
+                     onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--secondary)'"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--primary)'">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem;">
+                        📞
+                    </div>
+                    <h3 style="color: var(--white); margin-bottom: 10px; font-size: 1.3rem; font-weight: 700;">전화 상담</h3>
+                    <p style="color: var(--neutral); margin-bottom: 15px;">이후경 경영지도사</p>
+                    <a href="tel:010-9251-9743" style="color: var(--primary); font-size: 1.4rem; font-weight: 700; text-decoration: none; display: block; margin-bottom: 10px;">010-9251-9743</a>
+                    <p style="color: var(--neutral); font-size: 0.9rem;">평일 9:00~18:00 (주말/공휴일 상담 가능)</p>
+                </div>
+
+                <!-- 이메일 연락처 -->
+                <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; text-align: center; border: 2px solid var(--secondary); transition: all 0.3s ease;"
+                     onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--primary)'"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--secondary)'">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem;">
+                        📧
+                    </div>
+                    <h3 style="color: var(--white); margin-bottom: 10px; font-size: 1.3rem; font-weight: 700;">이메일 문의</h3>
+                    <p style="color: var(--neutral); margin-bottom: 15px;">빠른 답변 보장</p>
+                    <a href="mailto:hongik423@gmail.com" style="color: var(--secondary); font-size: 1.2rem; font-weight: 700; text-decoration: none; display: block; margin-bottom: 10px;">hongik423@gmail.com</a>
+                    <p style="color: var(--neutral); font-size: 0.9rem;">24시간 접수 / 1일 내 답변</p>
+                </div>
+            </div>
+
+            <!-- 메인 CTA 버튼 -->
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="tel:010-9251-9743" class="contact-cta" style="margin-right: 15px;">📞 바로 전화하기</a>
+                <a href="mailto:hongik423@gmail.com" class="contact-cta" style="background: var(--secondary); margin-left: 15px;">📧 이메일 보내기</a>
+            </div>
         </section>
 
         <!-- 일터혁신 상생컨설팅 특별 섹션 -->
@@ -1144,7 +1192,7 @@
         <div class="service-detail-container">
             <div class="service-detail-header fade-in">
                 <h1 class="service-detail-title">정책자금 활용 자문</h1>
-                <p class="service-detail-subtitle">정부 정책자금을 확실하게 확보하세요</p>
+                <p class="service-detail-subtitle">🔥 사업전환자금·구조개선자금 전문 컨설팅</p>
             </div>
 
             <!-- 문제점 & 해결책 통합 섹션 -->
@@ -1153,13 +1201,13 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
                         <div>
                             <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
-                                💰 자금 확보가 어려우신가요?
+                                💰 사업전환·구조개선 자금이 필요하신가요?
                             </div>
                             <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
-                                <li style="margin-bottom:12px;">❌ 운영자금 부족으로 사업 확장 제약</li>
-                                <li style="margin-bottom:12px;">❌ 복잡한 정책자금 신청 절차</li>
-                                <li style="margin-bottom:12px;">❌ 낮은 선정률과 반복 탈락</li>
-                                <li style="margin-bottom:12px;">❌ 신청 기회 놓침과 시간 손실</li>
+                                <li style="margin-bottom:12px;">❌ 사업구조 전환으로 자금 압박 심화</li>
+                                <li style="margin-bottom:12px;">❌ 구조개선 비용 부담으로 경영난 가중</li>
+                                <li style="margin-bottom:12px;">❌ 정책자금 정보 부족·복잡한 신청 절차</li>
+                                <li style="margin-bottom:12px;">❌ 낮은 선정률과 반복 탈락의 악순환</li>
                             </ul>
                         </div>
                         <div>
@@ -1167,10 +1215,10 @@
                                 ✅ AI CAMP이 해결해 드립니다!
                             </div>
                             <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px; color: #4CAF50; font-weight: 700;">🔥 사업전환자금 전문 신청 지원</li>
+                                <li style="margin-bottom:12px; color: #4CAF50; font-weight: 700;">🔥 구조개선자금 확보 완전 대행</li>
                                 <li style="margin-bottom:12px;">✅ 100+ 정책자금 DB 매칭</li>
                                 <li style="margin-bottom:12px;">✅ 전문가 신청서 작성 대행</li>
-                                <li style="margin-bottom:12px;">✅ 정밀 분석 & 개선 제안</li>
-                                <li style="margin-bottom:12px;">✅ 선정 후 완벽 사후관리</li>
                             </ul>
                         </div>
                     </div>
@@ -1199,42 +1247,42 @@
 
             <!-- 4단계 프로세스 -->
             <div class="process">
-                <h2 class="process-title">정책자금 확보 4단계 프로세스</h2>
+                <h2 class="process-title">🔥 사업전환·구조개선자금 확보 프로세스</h2>
                 <div class="process-timeline">
                     <div class="process-step">
                         <div class="process-step-number">1</div>
-                        <h3 class="process-step-title">기업 분석 (Analysis)</h3>
+                        <h3 class="process-step-title">사업전환 진단</h3>
                         <p class="process-step-desc">
-                            재무상태 및 사업현황 분석<br>
-                            자금 니즈 파악<br>
-                            개선 포인트 도출
+                            현재 사업구조 분석 및 전환 필요성 검토<br>
+                            구조개선 요구사항 파악<br>
+                            전환 타당성 평가
                         </p>
                     </div>
                     <div class="process-step">
                         <div class="process-step-number">2</div>
-                        <h3 class="process-step-title">자금 매칭 (Matching)</h3>
+                        <h3 class="process-step-title">자금 프로그램 매칭</h3>
                         <p class="process-step-desc">
-                            최적 정책자금 선별 및 매칭<br>
-                            신청 전략 수립<br>
-                            일정 관리 및 준비
+                            사업전환자금·구조개선자금 최적 프로그램 선별<br>
+                            신청 전략 수립 및 일정 관리<br>
+                            지원 요건 및 심사기준 분석
                         </p>
                     </div>
                     <div class="process-step">
                         <div class="process-step-number">3</div>
-                        <h3 class="process-step-title">신청 대행 (Application)</h3>
+                        <h3 class="process-step-title">전문 신청서 작성</h3>
                         <p class="process-step-desc">
-                            전문가 신청서 작성<br>
-                            제출 및 진행 관리<br>
-                            심사 대응 지원
+                            사업전환 계획서 및 구조개선안 전문 작성<br>
+                            필요 서류 준비 및 제출 대행<br>
+                            심사 과정 대응 지원
                         </p>
                     </div>
                     <div class="process-step">
                         <div class="process-step-number">4</div>
-                        <h3 class="process-step-title">사후 관리 (Management)</h3>
+                        <h3 class="process-step-title">선정 및 이행관리</h3>
                         <p class="process-step-desc">
-                            선정 후 실행 지원<br>
-                            정산 및 보고서 관리<br>
-                            차년도 연계 지원
+                            자금 지급 과정 관리 및 실행 지원<br>
+                            사업전환·구조개선 성과 모니터링<br>
+                            정산 보고서 작성 및 차년도 연계
                         </p>
                     </div>
                 </div>
@@ -1244,14 +1292,14 @@
             <div style="text-align:center; margin: 60px 0;">
                 <div style="display:inline-block; background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
                             color:white; padding:10px 20px; font-weight:600; border-radius:20px;">
-                    무료 자금 진단 이벤트!
+                    🔥 사업전환·구조개선자금 무료 진단 이벤트!
                 </div>
             </div>
 
             <!-- 문의/제휴 -->
             <div style="text-align:center; margin-bottom: 40px;">
                 <p style="font-size:1.1rem; color:var(--neutral); margin-bottom:10px;">
-                    지금 바로 정책자금을 확보하세요!
+                    지금 바로 사업전환·구조개선자금을 확보하세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
                     <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
@@ -1263,7 +1311,7 @@
 
             <!-- Footer -->
             <div style="text-align:center; margin-top: 80px; color:var(--neutral); font-size:0.9rem;">
-                © 2025 AI CAMP. All rights reserved. | 정책자금 활용 전문 컨설팅
+                © 2025 AI CAMP. All rights reserved. | 사업전환·구조개선자금 전문 컨설팅
             </div>
         </div>
     </div>
@@ -1276,7 +1324,7 @@
         <div class="service-detail-container">
             <div class="service-detail-header fade-in">
                 <h1 class="service-detail-title">경매활용 공장구매 컨설팅</h1>
-                <p class="service-detail-subtitle">전략적 경매 투자로 공장 부지를 확보하세요</p>
+                <p class="service-detail-subtitle">🔥 공장입지분석·투자사업타당성분석 전문 컨설팅</p>
             </div>
 
             <!-- 문제점 & 해결책 통합 섹션 -->
@@ -1285,13 +1333,13 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
                         <div>
                             <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
-                                🏭 공장 부지 확보가 어려우신가요?
+                                🏭 공장입지분석·투자사업타당성 검토가 어려우신가요?
                             </div>
                             <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
-                                <li style="margin-bottom:12px;">❌ 높은 부지 가격으로 확장 제약</li>
-                                <li style="margin-bottom:12px;">❌ 적정 위치·규모 부지 부족</li>
-                                <li style="margin-bottom:12px;">❌ 경매 전문지식 & 리스크 우려</li>
-                                <li style="margin-bottom:12px;">❌ 복잡한 법적 절차 부담</li>
+                                <li style="margin-bottom:12px;">❌ 복잡한 입지분석 방법론 부족</li>
+                                <li style="margin-bottom:12px;">❌ 투자사업 수익성 예측 어려움</li>
+                                <li style="margin-bottom:12px;">❌ 경매 리스크 분석 전문지식 부족</li>
+                                <li style="margin-bottom:12px;">❌ 투자 타당성 판단 기준 모호</li>
                             </ul>
                         </div>
                         <div>
@@ -1299,10 +1347,10 @@
                                 ✅ AI CAMP이 해결해 드립니다!
                             </div>
                             <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px; color: #4CAF50; font-weight: 700;">🔥 공장입지분석 전문 컨설팅</li>
+                                <li style="margin-bottom:12px; color: #4CAF50; font-weight: 700;">🔥 투자사업타당성분석 완전 대행</li>
                                 <li style="margin-bottom:12px;">✅ 정밀 물건 분석 & 타당성 검토</li>
                                 <li style="margin-bottom:12px;">✅ 낙찰가 예측 분석 시스템</li>
-                                <li style="margin-bottom:12px;">✅ 권리관계 사전 완벽 점검</li>
-                                <li style="margin-bottom:12px;">✅ 소유권 이전까지 토털 지원</li>
                             </ul>
                         </div>
                     </div>
@@ -1331,42 +1379,42 @@
 
             <!-- 4단계 프로세스 -->
             <div class="process">
-                <h2 class="process-title">경매 공장구매 4단계 프로세스</h2>
+                <h2 class="process-title">🔥 공장입지분석·투자사업타당성분석 프로세스</h2>
                 <div class="process-timeline">
                     <div class="process-step">
                         <div class="process-step-number">1</div>
-                        <h3 class="process-step-title">타당성 검토</h3>
+                        <h3 class="process-step-title">공장입지 기초조사</h3>
                         <p class="process-step-desc">
-                            물건 분석 및 투자 가치 평가<br>
-                            권리관계 및 리스크 점검<br>
-                            수익성 시뮬레이션
+                            입지조건 및 접근성 분석<br>
+                            주변 인프라 및 산업환경 조사<br>
+                            법적 규제 및 용도지역 검토
                         </p>
                     </div>
                     <div class="process-step">
                         <div class="process-step-number">2</div>
-                        <h3 class="process-step-title">전략 수립</h3>
+                        <h3 class="process-step-title">투자사업타당성분석</h3>
                         <p class="process-step-desc">
-                            입찰 전략 및 한도 설정<br>
-                            경쟁 상황 분석<br>
-                            자금 조달 방안 수립
+                            투자 수익성 및 리스크 분석<br>
+                            경제성 평가 및 민감도 분석<br>
+                            자금 조달 계획 수립
                         </p>
                     </div>
                     <div class="process-step">
                         <div class="process-step-number">3</div>
-                        <h3 class="process-step-title">경매 참여</h3>
+                        <h3 class="process-step-title">종합 투자전략 수립</h3>
                         <p class="process-step-desc">
-                            전문가 대리 입찰 진행<br>
-                            실시간 경매 상황 관리<br>
-                            최적 타이밍 입찰 실행
+                            입지분석과 타당성분석 결과 종합<br>
+                            입찰 전략 및 한도 설정<br>
+                            최적 투자 방안 도출
                         </p>
                     </div>
                     <div class="process-step">
                         <div class="process-step-number">4</div>
-                        <h3 class="process-step-title">사후 관리</h3>
+                        <h3 class="process-step-title">실행 및 성과관리</h3>
                         <p class="process-step-desc">
-                            낙찰 후 절차 진행<br>
-                            소유권 이전 등기<br>
-                            인허가 및 개발 지원
+                            투자 실행 및 경매 참여 지원<br>
+                            낙찰 후 개발 및 운영 자문<br>
+                            투자 성과 모니터링 및 최적화
                         </p>
                     </div>
                 </div>
@@ -1376,14 +1424,14 @@
             <div style="text-align:center; margin: 60px 0;">
                 <div style="display:inline-block; background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
                             color:white; padding:10px 20px; font-weight:600; border-radius:20px;">
-                    무료 타당성 검토 이벤트!
+                    🔥 공장입지분석·투자사업타당성분석 무료 진단!
                 </div>
             </div>
 
             <!-- 문의/제휴 -->
             <div style="text-align:center; margin-bottom: 40px;">
                 <p style="font-size:1.1rem; color:var(--neutral); margin-bottom:10px;">
-                    지금 바로 경매 투자를 시작하세요!
+                    지금 바로 공장입지분석·투자사업타당성분석을 받아보세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
                     <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
@@ -1395,7 +1443,7 @@
 
             <!-- Footer -->
             <div style="text-align:center; margin-top: 80px; color:var(--neutral); font-size:0.9rem;">
-                © 2025 AI CAMP. All rights reserved. | 경매활용 공장구매 전문 컨설팅
+                © 2025 AI CAMP. All rights reserved. | 공장입지분석·투자사업타당성분석 전문 컨설팅
             </div>
         </div>
     </div>
