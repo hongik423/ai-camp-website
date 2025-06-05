@@ -688,7 +688,7 @@
                 <li><a href="#" class="nav-link" onclick="showHome()">홈</a></li>
                 <li><a href="#services" class="nav-link">서비스</a></li>
                 <li><a href="#" class="nav-link" onclick="showProfile()">대표컨설턴트 소개</a></li>
-                <li><a href="#contact" class="nav-link">문의하기</a></li>
+                <li><a href="#" class="nav-link" onclick="showContactModal()">문의하기</a></li>
                 <!-- "제안서 보기" 버튼: export=view 로 수정 -->
                 <li>
                     <a 
@@ -738,7 +738,10 @@
                             <li class="service-feature">AI 도구 활용 극대화</li>
                             <li class="service-feature">디지털 역량 격차 해소</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(1); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
 
                     <!-- 2. 정책자금 활용 자문 -->
@@ -754,7 +757,10 @@
                             <li class="service-feature">정책자금 정보 부족·복잡한 신청 절차 지원</li>
                             <li class="service-feature">낮은 선정 확률 개선 · 시간 낭비 최소화</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(2); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
 
                     <!-- 3. 경매활용 공장구매 컨설팅 -->
@@ -770,7 +776,10 @@
                             <li class="service-feature">경매 전문 지식 부족 보완</li>
                             <li class="service-feature">법적 절차·권리 분석 부담 경감</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(3); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
 
                     <!-- 4. 매출증대 웹사이트 구축 -->
@@ -786,7 +795,10 @@
                             <li class="service-feature">CRM 기반 데이터 활용 극대화</li>
                             <li class="service-feature">간편결제 → 구매 포기 감소</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(4); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
 
                     <!-- 5. 경정청구 전문 서비스 -->
@@ -802,7 +814,10 @@
                             <li class="service-feature">세무 신고 오류 → 손실 감소</li>
                             <li class="service-feature">시효 만료 위험 방지</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(5); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
 
                     <!-- 6. ISO·ESG 인증 전문 -->
@@ -818,7 +833,10 @@
                             <li class="service-feature">대기업 거래 조건 충족 지원</li>
                             <li class="service-feature">사후 관리·갱신 유지 보장</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(6); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
 
                     <!-- 7. 일터혁신 상생컨설팅 -->
@@ -834,7 +852,10 @@
                             <li class="service-feature">평생학습체계 구축으로 역량 향상</li>
                             <li class="service-feature" style="color: #ff6b6b; font-weight: 700;">💰 컨설팅 비용 전액 무료 (기업부담 0원)</li>
                         </ul>
-                        <a href="#" class="service-cta">자세히 보기 →</a>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="#" class="service-cta" onclick="showServiceDetail(7); event.preventDefault();" style="flex: 1;">자세히 보기 →</a>
+                            <a href="#" class="service-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); flex: 1;">문의하기 📞</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2543,6 +2564,49 @@
     </div>
 
     <!-- ─────────────────────────────────────────────────────────
+       문의하기 모달
+    ───────────────────────────────────────────────────────── -->
+    <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; position: relative; border: 2px solid var(--primary);">
+            <!-- 닫기 버튼 -->
+            <button onclick="closeContactModal()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--neutral); font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px;">✕</button>
+            
+            <!-- 모달 헤더 -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="color: var(--primary); margin-bottom: 10px; font-size: 1.8rem;">📞 상담 문의 방법</h2>
+                <p style="color: var(--neutral); font-size: 1rem;">원하시는 상담 방법을 선택해주세요</p>
+            </div>
+
+            <!-- 연락 방법 선택 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- 전화상담 -->
+                <button onclick="makePhoneCall()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; border: none; padding: 20px; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📞</div>
+                    <h3 style="margin: 0 0 5px 0; font-size: 1.1rem;">전화상담</h3>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">010-9251-9743</p>
+                    <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.7;">즉시 연결</p>
+                </button>
+
+                <!-- 이메일 문의 -->
+                <button onclick="sendEmail()" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%); color: white; border: none; padding: 20px; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📧</div>
+                    <h3 style="margin: 0 0 5px 0; font-size: 1.1rem;">이메일 문의</h3>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">hongik423@gmail.com</p>
+                    <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.7;">24시간 접수</p>
+                </button>
+            </div>
+
+            <!-- 추가 정보 -->
+            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <p style="color: var(--neutral); font-size: 0.9rem; margin: 0;">
+                    <strong style="color: var(--primary);">이후경 소장/경영지도사</strong><br>
+                    평일 9:00~18:00 | 주말/공휴일 상담 가능
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────────────────────
        푸터 배너
     ───────────────────────────────────────────────────────── -->
     <div class="event-banner">
@@ -2609,6 +2673,42 @@
             document.getElementById(targetId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // 문의하기 모달 표시
+        function showContactModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 문의하기 모달 닫기
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 전화상담 연결
+        function makePhoneCall() {
+            window.location.href = 'tel:010-9251-9743';
+            closeContactModal();
+        }
+
+        // 이메일 문의 연결
+        function sendEmail() {
+            window.location.href = 'mailto:hongik423@gmail.com?subject=AI CAMP 서비스 문의&body=안녕하세요. AI CAMP 서비스에 대해 문의드립니다.';
+            closeContactModal();
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('contactModal');
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeContactModal();
+                }
+            });
+        });
 
         // 앵커 링크 부드러운 스크롤
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
