@@ -6,7 +6,7 @@
     <title>AI CAMP – 비즈니스 혁신 파트너</title>
     <style>
         /* ─────────────────────────────────────────────────────────
-           공통 스타일
+           공통 스타일 (다크모드)
         ───────────────────────────────────────────────────────── */
         * {
             margin: 0;
@@ -14,19 +14,22 @@
             box-sizing: border-box;
         }
         :root {
-            --primary: #2E86DE;
-            --secondary: #FF7F50;
-            --accent: #28A745;
-            --neutral: #6C757D;
+            --primary: #4A9EFF;
+            --secondary: #FF8A65;
+            --accent: #4CAF50;
+            --neutral: #B0B0B0;
             --white: #FFFFFF;
-            --black: #1A1A1A;
-            --light-gray: #F8F9FA;
-            --dark-gray: #343A40;
+            --black: #0F0F0F;
+            --light-gray: #1E1E1E;
+            --dark-gray: #2A2A2A;
+            --darker-gray: #121212;
+            --card-bg: #1A1A1A;
+            --nav-bg: rgba(18, 18, 18, 0.95);
         }
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            color: var(--black);
-            background: var(--white);
+            color: var(--white);
+            background: var(--black);
             overflow-x: hidden;
             position: relative;
         }
@@ -75,8 +78,8 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(ellipse at top, rgba(46, 134, 222, 0.1) 0%, transparent 70%),
-                radial-gradient(ellipse at bottom, rgba(255, 127, 80, 0.1) 0%, transparent 70%);
+                radial-gradient(ellipse at top, rgba(74, 158, 255, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at bottom, rgba(255, 138, 101, 0.1) 0%, transparent 70%);
             animation: aurora-flow 20s ease-in-out infinite;
             z-index: -1;
         }
@@ -100,7 +103,7 @@
             height: 4px;
             background: var(--primary);
             border-radius: 50%;
-            opacity: 0.3;
+            opacity: 0.4;
             animation: float-up 15s linear infinite;
         }
         @keyframes float-up {
@@ -109,10 +112,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
             90% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
             100% {
                 transform: translateY(-100vh) rotate(360deg);
@@ -129,9 +132,10 @@
             left: 0;
             width: 100%;
             padding: 20px 50px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             transition: all 0.3s ease;
         }
@@ -143,13 +147,19 @@
             align-items: center;
         }
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             cursor: pointer;
+        }
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: contain;
         }
         .nav-links {
             display: flex;
@@ -157,7 +167,7 @@
             list-style: none;
         }
         .nav-link {
-            color: var(--black);
+            color: var(--white);
             font-weight: 500;
             position: relative;
             transition: all 0.3s ease;
@@ -172,6 +182,9 @@
             background: var(--primary);
             transition: width 0.3s ease;
         }
+        .nav-link:hover {
+            color: var(--primary);
+        }
         .nav-link:hover::after {
             width: 100%;
         }
@@ -183,10 +196,11 @@
             color: var(--white);
             border-radius: 20px;
             font-weight: 500;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
         .btn-pdf:hover {
             background: var(--accent);
+            transform: translateY(-2px);
         }
 
         /* ─────────────────────────────────────────────────────────
@@ -235,11 +249,11 @@
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(46, 134, 222, 0.3);
+            box-shadow: 0 10px 30px rgba(74, 158, 255, 0.3);
         }
         .hero-cta:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(46, 134, 222, 0.4);
+            box-shadow: 0 15px 40px rgba(74, 158, 255, 0.4);
         }
 
         /* ─────────────────────────────────────────────────────────
@@ -261,7 +275,7 @@
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 20px;
-            color: var(--black);
+            color: var(--white);
         }
         .services-grid {
             display: grid;
@@ -269,14 +283,16 @@
             gap: 40px;
         }
         .service-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            transition: all 0.3s ease;
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 45px;
+            transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(74, 158, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
         .service-card::before {
             content: '';
@@ -284,40 +300,68 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
         .service-card:hover::before {
             transform: translateX(0);
         }
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(74, 158, 255, 0.3);
+            border-color: rgba(74, 158, 255, 0.5);
         }
         .service-icon {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 20px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 30px;
             font-size: 2.5rem;
             color: var(--white);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(74, 158, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .service-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(74, 158, 255, 0.4);
+        }
+        .service-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+        .service-icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 15px;
+            filter: none;
         }
         .service-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--black);
+            font-size: 1.7rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: var(--white);
+            line-height: 1.3;
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .service-description {
             color: var(--neutral);
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
         .service-features {
             list-style: none;
@@ -352,7 +396,7 @@
             display: none;
             min-height: 100vh;
             padding: 120px 50px 80px;
-            background: var(--white);
+            background: var(--black);
         }
         .service-detail.active {
             display: block;
@@ -389,16 +433,18 @@
             margin-bottom: 80px;
         }
         .stat-card {
-            background: var(--white);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(74, 158, 255, 0.3);
         }
         .stat-number {
             font-size: 3rem;
@@ -422,6 +468,7 @@
             font-weight: 700;
             text-align: center;
             margin-bottom: 60px;
+            color: var(--white);
         }
         .process-timeline {
             display: grid;
@@ -449,6 +496,7 @@
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 10px;
+            color: var(--white);
         }
         .process-step-desc {
             color: var(--neutral);
@@ -462,7 +510,7 @@
             position: fixed;
             top: 100px;
             left: 50px;
-            background: var(--white);
+            background: var(--card-bg);
             border: 2px solid var(--primary);
             border-radius: 50%;
             width: 50px;
@@ -473,10 +521,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 100;
+            color: var(--white);
         }
         .back-button:hover {
             background: var(--primary);
             color: var(--white);
+            transform: translateX(-5px);
         }
 
         /* ─────────────────────────────────────────────────────────
@@ -487,6 +537,7 @@
             color: var(--white);
             padding: 80px 50px;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         .contact-title {
             font-size: 2.5rem;
@@ -496,6 +547,7 @@
         .contact-info {
             font-size: 1.2rem;
             margin-bottom: 40px;
+            color: var(--neutral);
         }
         .contact-cta {
             display: inline-block;
@@ -509,7 +561,7 @@
         }
         .contact-cta:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(46, 134, 222, 0.4);
+            box-shadow: 0 15px 40px rgba(74, 158, 255, 0.4);
         }
 
         /* ─────────────────────────────────────────────────────────
@@ -617,12 +669,16 @@
     <!-- 네비게이션 -->
     <nav class="nav">
         <div class="nav-container">
-            <div class="logo" onclick="showHome()">AI CAMP</div>
+            <div class="logo" onclick="showHome()">
+                <img src="./images/AICAMP로고.png" alt="AI CAMP 로고" class="logo-img">
+                <span>AI CAMP</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="#" class="nav-link" onclick="showHome()">홈</a></li>
                 <li><a href="#services" class="nav-link">서비스</a></li>
+                <li><a href="#" class="nav-link" onclick="showProfile()">대표컨설턴트 소개</a></li>
                 <li><a href="#contact" class="nav-link">문의하기</a></li>
-                <!-- “제안서 보기” 버튼: export=view 로 수정 -->
+                <!-- "제안서 보기" 버튼: export=view 로 수정 -->
                 <li>
                     <a 
                         href="https://drive.google.com/uc?export=view&id=1V3WAd1B17GsMc9DiUxxnytWKj_A4tBe1" 
@@ -652,14 +708,16 @@
             <div class="services-container">
                 <div class="services-header fade-in">
                     <h2 class="services-title">AI CAMP 핵심 서비스</h2>
-                    <p class="services-subtitle">귀사의 성장을 위한 6가지 전문 솔루션</p>
+                    <p class="services-subtitle">귀사의 성장을 위한 7가지 전문 솔루션</p>
                 </div>
                 <div class="services-grid">
                     <!-- 1. AI CAMP BM – 생산성혁신 컨설팅 -->
                     <div class="service-card slide-in-left" onclick="showServiceDetail(1)">
-                        <div class="service-icon">🚀</div>
-                        <h3 class="service-title">AI CAMP BM – 생산성혁신 컨설팅</h3>
-                        <p class="service-description">AI로 일하는 즐거움을 되찾아 드립니다</p>
+                        <div class="service-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <img src="./images/1AICAMPBM생산성혁신컨설팅.png?v=2025" alt="AI 생산성혁신" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        <h3 class="service-title">🚀 AI CAMP BM – 생산성혁신 컨설팅</h3>
+                        <p class="service-description">🎯 AI로 일하는 즐거움을 되찾아 드립니다</p>
                         <ul class="service-features">
                             <li class="service-feature">반복업무로 인한 생산성 저하 (30-40%) 해결</li>
                             <li class="service-feature">직원 몰입도 향상·이직률 감소</li>
@@ -671,9 +729,11 @@
 
                     <!-- 2. 정책자금 활용 자문 -->
                     <div class="service-card slide-in-right" onclick="showServiceDetail(2)">
-                        <div class="service-icon">💰</div>
-                        <h3 class="service-title">정책자금 활용 자문</h3>
-                        <p class="service-description">정부 정책자금을 확실하게 확보하세요</p>
+                        <div class="service-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <img src="./images/2정책자금.png?v=2025" alt="정책자금 활용" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        <h3 class="service-title">💰 정책자금 활용 자문</h3>
+                        <p class="service-description">💎 정부 정책자금을 확실하게 확보하세요</p>
                         <ul class="service-features">
                             <li class="service-feature">운영자금 부족으로 사업 확장 어려움 해소</li>
                             <li class="service-feature">정책자금 정보 부족·복잡한 신청 절차 지원</li>
@@ -685,9 +745,11 @@
 
                     <!-- 3. 경매활용 공장구매 컨설팅 -->
                     <div class="service-card slide-in-left" onclick="showServiceDetail(3)">
-                        <div class="service-icon">🏭</div>
-                        <h3 class="service-title">경매활용 공장구매 컨설팅</h3>
-                        <p class="service-description">전략적 경매 투자로 공장 부지를 확보하세요</p>
+                        <div class="service-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <img src="./images/3경매공장구매.png?v=2025" alt="경매활용 공장구매" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        <h3 class="service-title">🏭 경매활용 공장구매 컨설팅</h3>
+                        <p class="service-description">⚡ 전략적 경매 투자로 공장 부지를 확보하세요</p>
                         <ul class="service-features">
                             <li class="service-feature">높은 부지 가격으로 인한 비용 절감</li>
                             <li class="service-feature">적정 위치·규모 부지 발굴</li>
@@ -699,9 +761,11 @@
 
                     <!-- 4. 매출증대 웹사이트 구축 -->
                     <div class="service-card slide-in-right" onclick="showServiceDetail(4)">
-                        <div class="service-icon">🌐</div>
-                        <h3 class="service-title">매출증대 웹사이트 구축</h3>
-                        <p class="service-description">AI가 만드는 스마트한 매출 증대 웹사이트</p>
+                        <div class="service-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <img src="./images/4매출증대웹사이트.png?v=2025" alt="매출증대 웹사이트" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        <h3 class="service-title">💻 매출증대 웹사이트 구축</h3>
+                        <p class="service-description">🔥 AI가 만드는 스마트한 매출 증대 웹사이트</p>
                         <ul class="service-features">
                             <li class="service-feature">고객 문의 놓침·결제 이탈률 해결</li>
                             <li class="service-feature">회원 관리 부재로 재구매율 저조 해결</li>
@@ -713,9 +777,11 @@
 
                     <!-- 5. 경정청구 전문 서비스 -->
                     <div class="service-card slide-in-left" onclick="showServiceDetail(5)">
-                        <div class="service-icon">📋</div>
-                        <h3 class="service-title">경정청구 전문 서비스</h3>
-                        <p class="service-description">놓친 세금 혜택을 되찾아 드립니다</p>
+                        <div class="service-icon" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                            <img src="./images/경정청구.png?v=2025" alt="경정청구 전문" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        <h3 class="service-title">💸 경정청구 전문 서비스</h3>
+                        <p class="service-description">💰 놓친 세금 혜택을 되찾아 드립니다</p>
                         <ul class="service-features">
                             <li class="service-feature">복잡한 세법으로 놓친 공제 혜택 발굴</li>
                             <li class="service-feature">과다 납부 세금 환급 누락 방지</li>
@@ -727,14 +793,32 @@
 
                     <!-- 6. ISO·ESG 인증 전문 -->
                     <div class="service-card slide-in-right" onclick="showServiceDetail(6)">
-                        <div class="service-icon">🏆</div>
-                        <h3 class="service-title">ISO·ESG 인증 전문</h3>
-                        <p class="service-description">국제 표준 인증으로 글로벌 경쟁력을 확보하세요</p>
+                        <div class="service-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                            <img src="./images/ISO·ESG인증.png?v=2025" alt="ISO·ESG 인증" style="width: 85px; height: 85px; object-fit: cover; border-radius: 15px;">
+                        </div>
+                        <h3 class="service-title">🏆 ISO·ESG 인증 전문</h3>
+                        <p class="service-description">🌟 국제 표준 인증으로 글로벌 경쟁력을 확보하세요</p>
                         <ul class="service-features">
                             <li class="service-feature">복잡한 인증 절차·요구사항 대응</li>
                             <li class="service-feature">높은 컨설팅 비용·장기 투자 부담 완화</li>
                             <li class="service-feature">대기업 거래 조건 충족 지원</li>
                             <li class="service-feature">사후 관리·갱신 유지 보장</li>
+                        </ul>
+                        <a href="#" class="service-cta">자세히 보기 →</a>
+                    </div>
+
+                    <!-- 7. 일터혁신 상생컨설팅 -->
+                    <div class="service-card slide-in-left" onclick="showServiceDetail(7)">
+                        <div class="service-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                            <span style="font-size: 3rem;">🤝</span>
+                        </div>
+                        <h3 class="service-title">🤝 일터혁신 상생컨설팅</h3>
+                        <p class="service-description">🎉 정부지원 100% - 기업부담 0원으로 조직 혁신하세요!</p>
+                        <ul class="service-features">
+                            <li class="service-feature">직무분석·직무평가 시스템 구축</li>
+                            <li class="service-feature">직무급·성과급 도입으로 공정성 확보</li>
+                            <li class="service-feature">평생학습체계 구축으로 역량 향상</li>
+                            <li class="service-feature" style="color: #ff6b6b; font-weight: 700;">💰 컨설팅 비용 전액 무료 (기업부담 0원)</li>
                         </ul>
                         <a href="#" class="service-cta">자세히 보기 →</a>
                     </div>
@@ -746,7 +830,177 @@
         <section class="contact" id="contact">
             <h2 class="contact-title">지금 바로 시작하세요</h2>
             <p class="contact-info">전문 컨설턴트가 귀사의 성장을 도와드립니다</p>
-            <a href="tel:010-3475-1247" class="contact-cta">무료 상담 신청하기</a>
+            <a href="tel:010-9251-9743" class="contact-cta">무료 상담 신청하기</a>
+        </section>
+
+        <!-- 일터혁신 상생컨설팅 특별 섹션 -->
+        <section style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 80px 50px; position: relative; overflow: hidden;">
+            <!-- 배경 효과 -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(255, 107, 107, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
+            
+            <div style="max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;">
+                <!-- 헤더 -->
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <div style="display: inline-flex; align-items: center; gap: 15px; background: rgba(255, 107, 107, 0.1); padding: 15px 30px; border-radius: 50px; border: 2px solid #ff6b6b; margin-bottom: 30px;">
+                        <span style="font-size: 2.5rem;">🤝</span>
+                        <h2 style="font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">일터혁신 상생컨설팅</h2>
+                    </div>
+                    <h3 style="font-size: 1.8rem; font-weight: 700; color: #ff6b6b; margin-bottom: 15px;">
+                        🎉 정부지원 100% - 기업부담 0원으로 조직 혁신하세요!
+                    </h3>
+                    <p style="font-size: 1.2rem; color: var(--neutral); max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                        고용노동부 지원으로 완전 무료 컨설팅 서비스를 받아보세요
+                    </p>
+                </div>
+
+                <!-- 3열 주요 서비스 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px;">
+                    <!-- 첫 번째 카드: 직무분석·직무평가 시스템 구축 -->
+                    <div onclick="showServiceDetail(7)" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 25px; padding: 40px; text-align: center; border: 2px solid rgba(255, 107, 107, 0.3); position: relative; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" 
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(255, 107, 107, 0.6)'; this.style.boxShadow='0 20px 40px rgba(255, 107, 107, 0.2)'"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 107, 107, 0.3)'; this.style.boxShadow='none'">
+                        <!-- 배경 그라데이션 -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, transparent 100%); border-radius: 25px;"></div>
+                        
+                        <div style="position: relative; z-index: 1;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); border-radius: 20px; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);">
+                                📋
+                            </div>
+                            <h4 style="font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 20px; line-height: 1.4;">
+                                직무분석·직무평가<br>시스템 구축
+                            </h4>
+                            <ul style="text-align: left; color: var(--neutral); line-height: 2; list-style: none; padding: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    체계적인 직무 분류 및 정의
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    공정한 직무평가 기준 수립
+                                </li>
+                                <li style="display: flex; align-items: center;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    직무기술서 및 매뉴얼 작성
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 두 번째 카드: 직무급·성과급 도입 -->
+                    <div onclick="showServiceDetail(7)" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 25px; padding: 40px; text-align: center; border: 2px solid rgba(255, 107, 107, 0.3); position: relative; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" 
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(255, 107, 107, 0.6)'; this.style.boxShadow='0 20px 40px rgba(255, 107, 107, 0.2)'"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 107, 107, 0.3)'; this.style.boxShadow='none'">
+                        <!-- 배경 그라데이션 -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, transparent 100%); border-radius: 25px;"></div>
+                        
+                        <div style="position: relative; z-index: 1;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); border-radius: 20px; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);">
+                                💰
+                            </div>
+                            <h4 style="font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 20px; line-height: 1.4;">
+                                직무급·성과급 도입으로<br>공정성 확보
+                            </h4>
+                            <ul style="text-align: left; color: var(--neutral); line-height: 2; list-style: none; padding: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    직무기반 임금체계 설계
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    성과연동 보상체계 구축
+                                </li>
+                                <li style="display: flex; align-items: center;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    임금구조 개선 및 정비
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 세 번째 카드: 평생학습체계 구축 -->
+                    <div onclick="showServiceDetail(7)" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 25px; padding: 40px; text-align: center; border: 2px solid rgba(255, 107, 107, 0.3); position: relative; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" 
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(255, 107, 107, 0.6)'; this.style.boxShadow='0 20px 40px rgba(255, 107, 107, 0.2)'"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 107, 107, 0.3)'; this.style.boxShadow='none'">
+                        <!-- 배경 그라데이션 -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, transparent 100%); border-radius: 25px;"></div>
+                        
+                        <div style="position: relative; z-index: 1;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); border-radius: 20px; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);">
+                                🎓
+                            </div>
+                            <h4 style="font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 20px; line-height: 1.4;">
+                                평생학습체계 구축으로<br>역량 향상
+                            </h4>
+                            <ul style="text-align: left; color: var(--neutral); line-height: 2; list-style: none; padding: 0;">
+                                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    맞춤형 교육훈련 체계 설계
+                                </li>
+                                <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    직무능력 향상 프로그램 구축
+                                </li>
+                                <li style="display: flex; align-items: center;">
+                                    <span style="color: #ff6b6b; margin-right: 10px; font-weight: bold;">✓</span>
+                                    지속적인 역량개발 지원
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA 버튼 영역 -->
+                <div style="text-align: center;">
+                    <div style="background: rgba(255, 107, 107, 0.1); padding: 30px; border-radius: 20px; border: 2px solid #ff6b6b; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        <p style="font-size: 1.3rem; font-weight: 700; color: #ff6b6b; margin-bottom: 15px;">
+                            💎 특별 혜택: 컨설팅 비용 100% 정부지원
+                        </p>
+                        <p style="color: var(--neutral); margin-bottom: 20px; line-height: 1.6;">
+                            고용노동부 일터혁신 지원사업으로 전액 무료 컨설팅을 받으세요.<br>
+                            기업부담 0원으로 조직 혁신의 기회를 놓치지 마세요!
+                        </p>
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="showServiceDetail(7)" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);"
+                                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 35px rgba(255, 107, 107, 0.4)'"
+                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(255, 107, 107, 0.3)'">
+                                📋 상세 내용 보기
+                            </button>
+                            <a href="tel:010-9251-9743" style="background: transparent; color: #ff6b6b; border: 2px solid #ff6b6b; padding: 15px 30px; border-radius: 25px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; display: inline-block;"
+                               onmouseover="this.style.background='#ff6b6b'; this.style.color='white'"
+                               onmouseout="this.style.background='transparent'; this.style.color='#ff6b6b'">
+                                📞 무료 상담 신청
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 연락처 정보 -->
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 107, 107, 0.2);">
+                    <h3 style="color: #ff6b6b; margin-bottom: 20px; font-size: 1.4rem; font-weight: 700;">
+                        📞 일터혁신 컨설팅 전문가 직통 연락처
+                    </h3>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.2rem;">📞</span>
+                            <div>
+                                <p style="color: var(--white); font-weight: 600; font-size: 1.1rem; margin: 0;">이후경 경영지도사</p>
+                                <a href="tel:010-9251-9743" style="color: #ff6b6b; font-weight: 700; font-size: 1.2rem; text-decoration: none;">010-9251-9743</a>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.2rem;">📧</span>
+                            <div>
+                                <p style="color: var(--white); font-weight: 600; font-size: 1.1rem; margin: 0;">이메일 문의</p>
+                                <a href="mailto:hongik423@gmail.com" style="color: #ff6b6b; font-weight: 700; font-size: 1.1rem; text-decoration: none;">hongik423@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="color: var(--neutral); margin-top: 20px; font-size: 0.95rem; line-height: 1.5;">
+                        * 일터혁신 상생컨설팅은 정부지원 100% 무료 서비스입니다<br>
+                        * 언제든지 편하게 연락주시면 친절하게 상담해 드리겠습니다
+                    </p>
+                </div>
+            </div>
         </section>
     </div>
 
@@ -761,33 +1015,33 @@
                 <p class="service-detail-subtitle">AI로 일하는 즐거움을 되찾아 드립니다</p>
             </div>
 
-            <!-- 문제점 섹션 -->
+            <!-- 문제점 & 해결책 통합 섹션 -->
             <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        이런 고민이 있으신가요?
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                🚨 이런 고민이 있으신가요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 반복업무로 인한 생산성 저하 (30-40%)</li>
+                                <li style="margin-bottom:12px;">❌ 직원 몰입도 저하 & 이직률 증가</li>
+                                <li style="margin-bottom:12px;">❌ AI 도구 활용 부족</li>
+                                <li style="margin-bottom:12px;">❌ 디지털 역량 격차 확대</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ 4단계 통합 솔루션 제공</li>
+                                <li style="margin-bottom:12px;">✅ 멀티 AI 도구 완전 활용</li>
+                                <li style="margin-bottom:12px;">✅ 실무 중심 맞춤 교육</li>
+                                <li style="margin-bottom:12px;">✅ 6개월 사후관리 보장</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>반복업무로 인한 생산성 저하 (30-40%)</li>
-                        <li>직원들의 업무 몰입도 저하와 이직률 증가</li>
-                        <li>AI 도구는 있지만 제대로 활용하지 못함</li>
-                        <li>경쟁사 대비 디지털 역량 격차 확대</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 해결책 + 주요 특징 -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        AI CAMP이 해결해 드립니다!
-                    </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>✓ 4단계 통합 솔루션 (진단 → 교육 → 구축 → 관리)</li>
-                        <li>✓ Claude, ChatGPT, Gemini, Cursor 멀티 AI 활용</li>
-                        <li>✓ 중소기업 특화 실무 중심 교육</li>
-                        <li>✓ 6개월 지속 사후관리 보장</li>
-                    </ul>
                 </div>
             </div>
 
@@ -868,10 +1122,10 @@
                     지금 바로 AI 혁신을 시작하세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
-                    <span style="color:var(--primary);">무료 진단 신청</span> 010-3475-1247
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
                 </p>
                 <p style="font-size:1.1rem; color:var(--neutral);">
-                    이메일 문의 <a href="mailto:funding347@gmail.com" style="color:var(--primary);">funding347@gmail.com</a>
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
                 </p>
             </div>
 
@@ -893,33 +1147,33 @@
                 <p class="service-detail-subtitle">정부 정책자금을 확실하게 확보하세요</p>
             </div>
 
-            <!-- 문제점 섹션 -->
+            <!-- 문제점 & 해결책 통합 섹션 -->
             <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        자금 확보가 어려우신가요?
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                💰 자금 확보가 어려우신가요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 운영자금 부족으로 사업 확장 제약</li>
+                                <li style="margin-bottom:12px;">❌ 복잡한 정책자금 신청 절차</li>
+                                <li style="margin-bottom:12px;">❌ 낮은 선정률과 반복 탈락</li>
+                                <li style="margin-bottom:12px;">❌ 신청 기회 놓침과 시간 손실</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ 100+ 정책자금 DB 매칭</li>
+                                <li style="margin-bottom:12px;">✅ 전문가 신청서 작성 대행</li>
+                                <li style="margin-bottom:12px;">✅ 정밀 분석 & 개선 제안</li>
+                                <li style="margin-bottom:12px;">✅ 선정 후 완벽 사후관리</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>운영자금 부족으로 사업 확장 어려움</li>
-                        <li>정책자금 정보 부족과 복잡한 신청 절차</li>
-                        <li>낮은 선정 확률과 반복되는 탈락</li>
-                        <li>신청 기회 놓침과 시간 낭비</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 해결책 + 주요 특징 -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        AI CAMP이 해결해 드립니다!
-                    </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>✓ 맞춤형 정책자금 매칭 (100+ 자금 DB)</li>
-                        <li>✓ 전문가 신청서 작성 및 제출 대행</li>
-                        <li>✓ 기업 현황 정밀 분석 및 개선 제안</li>
-                        <li>✓ 선정 후 사후관리 및 지속 지원</li>
-                    </ul>
                 </div>
             </div>
 
@@ -1000,10 +1254,10 @@
                     지금 바로 정책자금을 확보하세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
-                    <span style="color:var(--primary);">무료 자금 진단 신청</span> 010-3475-1247
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
                 </p>
                 <p style="font-size:1.1rem; color:var(--neutral);">
-                    이메일 문의 <a href="mailto:funding347@gmail.com" style="color:var(--primary);">funding347@gmail.com</a>
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
                 </p>
             </div>
 
@@ -1025,33 +1279,33 @@
                 <p class="service-detail-subtitle">전략적 경매 투자로 공장 부지를 확보하세요</p>
             </div>
 
-            <!-- 문제점 섹션 -->
+            <!-- 문제점 & 해결책 통합 섹션 -->
             <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        공장 부지 확보가 어려우신가요?
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                🏭 공장 부지 확보가 어려우신가요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 높은 부지 가격으로 확장 제약</li>
+                                <li style="margin-bottom:12px;">❌ 적정 위치·규모 부지 부족</li>
+                                <li style="margin-bottom:12px;">❌ 경매 전문지식 & 리스크 우려</li>
+                                <li style="margin-bottom:12px;">❌ 복잡한 법적 절차 부담</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ 정밀 물건 분석 & 타당성 검토</li>
+                                <li style="margin-bottom:12px;">✅ 낙찰가 예측 분석 시스템</li>
+                                <li style="margin-bottom:12px;">✅ 권리관계 사전 완벽 점검</li>
+                                <li style="margin-bottom:12px;">✅ 소유권 이전까지 토털 지원</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>높은 공장 부지 가격으로 사업 확장 어려움</li>
-                        <li>적정 위치와 규모의 부지 찾기 어려움</li>
-                        <li>경매 전문 지식 부족과 리스크 우려</li>
-                        <li>복잡한 법적 절차와 권리 분석 부담</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 해결책 + 주요 특징 -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        AI CAMP이 해결해 드립니다!
-                    </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>✓ 정밀한 물건 분석 및 타당성 검토</li>
-                        <li>✓ 시장가 대비 낙찰가 예측 분석</li>
-                        <li>✓ 권리관계 및 리스크 사전 점검</li>
-                        <li>✓ 낙찰 후 소유권 이전까지 토털 지원</li>
-                    </ul>
                 </div>
             </div>
 
@@ -1132,10 +1386,10 @@
                     지금 바로 경매 투자를 시작하세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
-                    <span style="color:var(--primary);">무료 타당성 검토 신청</span> 010-3475-1247
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
                 </p>
                 <p style="font-size:1.1rem; color:var(--neutral);">
-                    이메일 문의 <a href="mailto:funding347@gmail.com" style="color:var(--primary);">funding347@gmail.com</a>
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
                 </p>
             </div>
 
@@ -1157,33 +1411,33 @@
                 <p class="service-detail-subtitle">AI가 만드는 스마트한 매출 증대 웹사이트</p>
             </div>
 
-            <!-- 문제점 섹션 -->
+            <!-- 문제점 & 해결책 통합 섹션 -->
             <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        웹사이트가 매출에 도움이 되지 않으신가요?
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                💻 웹사이트가 매출에 도움이 되지 않나요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 고객 문의 놓침 & 결제 이탈</li>
+                                <li style="margin-bottom:12px;">❌ 회원 관리 부재로 재구매율 저조</li>
+                                <li style="margin-bottom:12px;">❌ CRM 데이터 활용 미흡</li>
+                                <li style="margin-bottom:12px;">❌ 복잡한 결제로 구매 포기</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ AI 챗봇 + 개인화 추천</li>
+                                <li style="margin-bottom:12px;">✅ 회원관리 + CRM 완전 연동</li>
+                                <li style="margin-bottom:12px;">✅ 간편결제 + 구독관리</li>
+                                <li style="margin-bottom:12px;">✅ 반응형 + 실시간 분석</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>고객 문의 놓침과 결제 이탈률 높음</li>
-                        <li>회원 관리 부재로 재구매율 저조</li>
-                        <li>고객 데이터 분석 및 CRM 활용 부족</li>
-                        <li>복잡한 결제 과정으로 구매 포기</li>
-                    </li>
-                </div>
-            </div>
-
-            <!-- 해결책 + 주요 특징 -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        AI CAMP이 해결해 드립니다!
-                    </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>✓ AI 챗봇 + 개인화 추천 시스템</li>
-                        <li>✓ 회원관리 + CRM 데이터베이스 연동</li>
-                        <li>✓ 간편결제 + 구독 관리 시스템</li>
-                        <li>✓ 완벽한 반응형 + 실시간 분석</li>
-                    </ul>
                 </div>
             </div>
 
@@ -1264,10 +1518,10 @@
                     AI 올인원 솔루션으로 매출을 폭증시키세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
-                    <span style="color:var(--primary);">무료 웹사이트 진단 신청</span> 010-3475-1247
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
                 </p>
                 <p style="font-size:1.1rem; color:var(--neutral);">
-                    이메일 문의 <a href="mailto:funding347@gmail.com" style="color:var(--primary);">funding347@gmail.com</a>
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
                 </p>
             </div>
 
@@ -1289,33 +1543,33 @@
                 <p class="service-detail-subtitle">놓친 세금 혜택을 되찾아 드립니다</p>
             </div>
 
-            <!-- 문제점 섹션 -->
+            <!-- 문제점 & 해결책 통합 섹션 -->
             <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        이런 세금 손실이 있으신가요?
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                💸 이런 세금 손실이 있으신가요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 복잡한 세법으로 놓친 공제</li>
+                                <li style="margin-bottom:12px;">❌ 과다 납부 세금 방치</li>
+                                <li style="margin-bottom:12px;">❌ 세무 신고 오류 손해</li>
+                                <li style="margin-bottom:12px;">❌ 경정청구 시효 만료 위험</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ 전문가 세무 진단 & 권리 발굴</li>
+                                <li style="margin-bottom:12px;">✅ 정밀 경정청구서 작성 제출</li>
+                                <li style="margin-bottom:12px;">✅ 세무서 대응 & 이의신청</li>
+                                <li style="margin-bottom:12px;">✅ 성공시에만 수수료 (No Cure, No Pay)</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>복잡한 세법으로 놓친 공제 혜택들</li>
-                        <li>과다 납부한 세금을 모르고 지나침</li>
-                        <li>세무 신고 오류로 인한 손해</li>
-                        <li>경정청구 시효 만료로 회수 불가</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 해결책 + 주요 특징 -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        AI CAMP이 해결해 드립니다!
-                    </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>✓ 전문가 세무 진단 및 권리 발굴</li>
-                        <li>✓ 정밀한 경정청구서 작성 및 제출</li>
-                        <li>✓ 세무서 대응 및 이의신청 지원</li>
-                        <li>✓ 성공시에만 수수료 (No Cure, No Pay)</li>
-                    </ul>
                 </div>
             </div>
 
@@ -1335,7 +1589,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">90일</div>
-                    <div class="Stat-label">평균 처리기간 (진단부터 환급까지)</div>
+                    <div class="stat-label">평균 처리기간 (진단부터 환급까지)</div>
                 </div>
             </div>
 
@@ -1396,10 +1650,10 @@
                     지금 바로 놓친 세금을 되찾으세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
-                    <span style="color:var(--primary);">무료 세무 진단 신청</span> 010-3475-1247
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
                 </p>
                 <p style="font-size:1.1rem; color:var(--neutral);">
-                    이메일 문의 <a href="mailto:funding347@gmail.com" style="color:var(--primary);">funding347@gmail.com</a>
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
                 </p>
             </div>
 
@@ -1421,33 +1675,33 @@
                 <p class="service-detail-subtitle">국제 표준 인증으로 글로벌 경쟁력을 확보하세요</p>
             </div>
 
-            <!-- 문제점 섹션 -->
+            <!-- 문제점 & 해결책 통합 섹션 -->
             <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        인증 취득이 어려우신가요?
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                🏆 인증 취득이 어려우신가요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 복잡한 ISO/ESG 인증 절차</li>
+                                <li style="margin-bottom:12px;">❌ 높은 비용 & 장기간 투자 부담</li>
+                                <li style="margin-bottom:12px;">❌ 대기업 거래 조건 충족 압박</li>
+                                <li style="margin-bottom:12px;">❌ 사후 관리 & 갱신 어려움</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ 맞춤형 인증 로드맵 & 갭 분석</li>
+                                <li style="margin-bottom:12px;">✅ 체계적 시스템 구축 & 문서화</li>
+                                <li style="margin-bottom:12px;">✅ 인증 심사 대응 & 취득 지원</li>
+                                <li style="margin-bottom:12px;">✅ 지속적 사후관리 & 갱신 지원</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>복잡한 ISO/ESG 인증 절차와 요구사항</li>
-                        <li>높은 컨설팅 비용과 장기간 투자 부담</li>
-                        <li>대기업 거래 조건과 ESG 경영 압박</li>
-                        <li>사후 관리 부담과 갱신 어려움</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 해결책 + 주요 특징 -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-label" style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">
-                        AI CAMP이 해결해 드립니다!
-                    </div>
-                    <ul style="list-style: disc inside; line-height:1.8; color: var(--neutral); font-size:1rem;">
-                        <li>✓ 맞춤형 인증 로드맵 및 갭 분석</li>
-                        <li>✓ 체계적 시스템 구축 및 문서화</li>
-                        <li>✓ 인증 심사 대응 및 취득 지원</li>
-                        <li>✓ 지속적 사후 관리 및 갱신 지원</li>
-                    </ul>
                 </div>
             </div>
 
@@ -1528,16 +1782,714 @@
                     지금 바로 글로벌 경쟁력을 확보하세요!
                 </p>
                 <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
-                    <span style="color:var(--primary);">무료 인증 진단 신청</span> 010-3475-1247
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
                 </p>
                 <p style="font-size:1.1rem; color:var(--neutral);">
-                    이메일 문의 <a href="mailto:funding347@gmail.com" style="color:var(--primary);">funding347@gmail.com</a>
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
                 </p>
             </div>
 
             <!-- Footer -->
             <div style="text-align:center; margin-top: 80px; color:var(--neutral); font-size:0.9rem;">
                 © 2025 AI CAMP. All rights reserved. | ISO·ESG 인증 전문 컨설팅
+            </div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────────────────────
+       서비스 상세페이지 7: 일터혁신 상생컨설팅
+    ───────────────────────────────────────────────────────── -->
+    <div id="service-7" class="service-detail">
+        <div class="back-button" onclick="showHome()">←</div>
+        <div class="service-detail-container">
+            <div class="service-detail-header fade-in">
+                <h1 class="service-detail-title">일터혁신 상생컨설팅</h1>
+                <p class="service-detail-subtitle">🎉 정부지원 100% - 기업부담 0원으로 조직 혁신을 시작하세요!</p>
+            </div>
+
+            <!-- 문제점 & 해결책 통합 섹션 -->
+            <div class="stats">
+                <div class="stat-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--secondary);">
+                                🤝 이런 조직 문제가 있으신가요?
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">❌ 장시간 근로관행과 일가정양립 문제</li>
+                                <li style="margin-bottom:12px;">❌ 불공정한 임금체계로 직원 불만 증가</li>
+                                <li style="margin-bottom:12px;">❌ 직장 내 괴롭힘·성희롱 등 조직문화 문제</li>
+                                <li style="margin-bottom:12px;">❌ 체계적인 직무분석·평가체계 부재</li>
+                                <li style="margin-bottom:12px;">❌ 비정규직 차별과 원하청 갈등</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="stat-label" style="font-size:1.5rem; font-weight:800; margin-bottom:20px; color: var(--accent);">
+                                ✅ AI CAMP이 해결해 드립니다!
+                            </div>
+                            <ul style="list-style: none; line-height:2; color: var(--neutral); font-size:1.1rem;">
+                                <li style="margin-bottom:12px;">✅ 19개 전문분야 맞춤형 컨설팅</li>
+                                <li style="margin-bottom:12px;">✅ 근로시간·임금체계·평가체계 개선</li>
+                                <li style="margin-bottom:12px;">✅ 일가정양립·직장문화·학습체계 구축</li>
+                                <li style="margin-bottom:12px;">✅ 차별개선·공정채용·장년친화 제도</li>
+                                <li style="margin-bottom:12px; color: #ff6b6b; font-weight: 800;">🎉 컨설팅 비용 전액 무료 (기업부담 0원)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주요 성과 지표 -->
+            <div class="stats">
+                <div class="stat-card" style="border: 3px solid #ff6b6b; background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); color: white;">
+                    <div class="stat-number" style="color: white; font-size: 2.5rem;">0원</div>
+                    <div class="stat-label" style="color: white; font-weight: 700;">기업부담 비용 (100% 정부지원)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">18개사</div>
+                    <div class="stat-label">누적 컨설팅 실적 (2022~2024년)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">과제 완료율 (프로젝트 성공률)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6개월</div>
+                    <div class="stat-label">컨설팅 기간 (체계적 단계별 진행)</div>
+                </div>
+            </div>
+
+            <!-- 컨설팅 추진 프로세스 -->
+            <div class="process">
+                <h2 class="process-title">일터혁신 컨설팅 추진 프로세스</h2>
+                <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                        <div style="text-align: center; background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; margin: 0 auto 15px;">1</div>
+                            <h3 style="color: var(--white); margin-bottom: 10px;">신청</h3>
+                            <p style="color: var(--neutral); font-size: 0.9rem;">일터혁신 추진 희망 기업이 자발적으로 신청</p>
+                        </div>
+                        <div style="text-align: center; background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; margin: 0 auto 15px;">2</div>
+                            <h3 style="color: var(--white); margin-bottom: 10px;">진단</h3>
+                            <p style="color: var(--neutral); font-size: 0.9rem;">내외부 환경 분석, 현황 진단, 핵심관계자 인터뷰</p>
+                        </div>
+                        <div style="text-align: center; background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; margin: 0 auto 15px;">3</div>
+                            <h3 style="color: var(--white); margin-bottom: 10px;">자문/컨설팅</h3>
+                            <p style="color: var(--neutral); font-size: 0.9rem;">자문 또는 전문컨설팅 (전문/심화/특화) 수행</p>
+                        </div>
+                        <div style="text-align: center; background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; margin: 0 auto 15px;">4</div>
+                            <h3 style="color: var(--white); margin-bottom: 10px;">이행지원</h3>
+                            <p style="color: var(--neutral); font-size: 0.9rem;">제도 개선 실행 및 정부 지원사업 연계 (3개월)</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.3rem;">📋 전문컨설팅 세부 프로세스</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                            <div style="background: var(--darker-gray); padding: 20px; border-radius: 10px;">
+                                <h4 style="color: var(--accent); margin-bottom: 10px;">① 착수</h4>
+                                <ul style="color: var(--neutral); font-size: 0.9rem; line-height: 1.6;">
+                                    <li>• 디자인팀(TFT) 구성</li>
+                                    <li>• 세부 추진일정 수립</li>
+                                    <li>• 근로자 인식조사(EOS)</li>
+                                </ul>
+                            </div>
+                            <div style="background: var(--darker-gray); padding: 20px; border-radius: 10px;">
+                                <h4 style="color: var(--accent); margin-bottom: 10px;">② 현황진단 및 분석</h4>
+                                <ul style="color: var(--neutral); font-size: 0.9rem; line-height: 1.6;">
+                                    <li>• 핵심 이슈 도출</li>
+                                    <li>• 제도 설계 과제 수립</li>
+                                    <li>• 전사 대상 중간보고</li>
+                                </ul>
+                            </div>
+                            <div style="background: var(--darker-gray); padding: 20px; border-radius: 10px;">
+                                <h4 style="color: var(--accent); margin-bottom: 10px;">③ 제도설계</h4>
+                                <ul style="color: var(--neutral); font-size: 0.9rem; line-height: 1.6;">
+                                    <li>• 제도 설계 진행</li>
+                                    <li>• 설계안 검토 및 확정</li>
+                                    <li>• 전사 대상 최종보고</li>
+                                </ul>
+                            </div>
+                            <div style="background: var(--darker-gray); padding: 20px; border-radius: 10px;">
+                                <h4 style="color: var(--accent); margin-bottom: 10px;">④ 이행지원</h4>
+                                <ul style="color: var(--neutral); font-size: 0.9rem; line-height: 1.6;">
+                                    <li>• 진행 현황 점검 (2회 이상)</li>
+                                    <li>• 문제 해소 지원</li>
+                                    <li>• 정부 지원사업 연계</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 19개 전문 분야 -->
+            <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--primary);">🔧 일터혁신 19개 전문 분야</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px;">
+                    <!-- 근로시간 관리 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0;">근로시간 관리</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 근무시간 관리기준 마련</li>
+                            <li>• 초과근로 관리방안 마련</li>
+                            <li>• 근로시간관리시스템 구축</li>
+                            <li>• 연차휴가 사용 촉진방안</li>
+                        </ul>
+                    </div>
+
+                    <!-- 근무체계 개편 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">근무체계 개편</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 유연근무제 도입 및 운영</li>
+                            <li>• 탄력적 근로시간제 도입</li>
+                            <li>• 보상휴가제 도입</li>
+                            <li>• 교대근무제 개편</li>
+                        </ul>
+                    </div>
+
+                    <!-- 임금관리체계 개선 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0;">임금관리체계 개선</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 임금구성항목 간소화</li>
+                            <li>• 임금체계 적법성 제고</li>
+                            <li>• 보수규정·취업규칙 정비</li>
+                        </ul>
+                    </div>
+
+                    <!-- 임금체계 재설계 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">임금체계 재설계</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 직급/직군별 임금테이블 구축</li>
+                            <li>• 직무 기반 임금체계 설계</li>
+                            <li>• 성과 기반 임금체계 설계</li>
+                        </ul>
+                    </div>
+
+                    <!-- 노사협의회 활성화 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0;">노사협의회 활성화</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 노사협의회 절차 설정</li>
+                            <li>• 운영규정 정비</li>
+                            <li>• 위원 위촉 및 선출 지원</li>
+                        </ul>
+                    </div>
+
+                    <!-- 노사파트너십 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">노사파트너십</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 노사 커뮤니케이션 구조 설계</li>
+                            <li>• 조직문화 진단 및 개선</li>
+                            <li>• 중장기 노사 비전체계 수립</li>
+                        </ul>
+                    </div>
+
+                    <!-- 참여적 혁신활동 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">참여적 혁신활동</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 자주적 문제해결 활동 구축</li>
+                            <li>• 작업조직 표준화</li>
+                            <li>• 3정 5S 활동 지원</li>
+                        </ul>
+                    </div>
+
+                    <!-- 일가정양립 프로그램 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0;">일가정양립 프로그램</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 임신 근로자 지원제도</li>
+                            <li>• 출산·육아 관련 지원</li>
+                            <li>• 가족돌봄 관련 지원</li>
+                        </ul>
+                    </div>
+
+                    <!-- 직장내 괴롭힘·성희롱 예방 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0; font-size: 1rem;">직장내 괴롭힘·성희롱 예방</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 신고 및 조사 절차 마련</li>
+                            <li>• 피해근로자 보호조치</li>
+                            <li>• 예방교육계획 수립</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                    <!-- 학습체계 기준 수립 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0;">학습체계 기준 수립</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 직무 분류 및 스킬셋 구축</li>
+                            <li>• 훈련기관 연계방안</li>
+                        </ul>
+                    </div>
+
+                    <!-- 학습체계 설계 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">학습체계 설계</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 적응형 학습체계 설계</li>
+                            <li>• 직무능력 향상형 학습체계</li>
+                        </ul>
+                    </div>
+
+                    <!-- 직무분석 및 업무정의 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">직무분석 및 업무정의</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 직무 분류 및 수행방식 정의</li>
+                            <li>• 직무기술서 작성</li>
+                        </ul>
+                    </div>
+
+                    <!-- 업무기능 개선 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">업무기능 개선</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 직무 재설계</li>
+                            <li>• 업무 프로세스 재설계</li>
+                        </ul>
+                    </div>
+
+                    <!-- 평가체계 설계 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">평가체계 설계</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 승진·보상 평가체계</li>
+                            <li>• 평가 운영체계 구축</li>
+                        </ul>
+                    </div>
+
+                    <!-- 차별 없는 일터 조성 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--primary); margin: 0;">차별 없는 일터 조성</h3>
+                            <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">진단</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 고용차별 진단 및 개선</li>
+                            <li>• 정규직 전환 기준 마련</li>
+                        </ul>
+                    </div>
+
+                    <!-- 사내하도급 근로자 보호 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0; font-size: 1rem;">사내하도급 근로자 보호</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 원·하청 상생관계 정착</li>
+                            <li>• 임금격차 해소</li>
+                        </ul>
+                    </div>
+
+                    <!-- 채용제도 진단 및 개선 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--accent); margin: 0;">채용제도 진단·개선</h3>
+                            <span style="background: var(--accent); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">전문</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 공정한 채용절차 수립</li>
+                            <li>• 채용절차법 기준 점검</li>
+                        </ul>
+                    </div>
+
+                    <!-- 채용제도 마련 및 운영지원 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0; font-size: 1rem;">채용제도 마련·운영지원</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 능력중심 채용제도</li>
+                            <li>• 온보딩 기법 마련</li>
+                        </ul>
+                    </div>
+
+                    <!-- 장년친화 인사제도 -->
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: var(--secondary); margin: 0;">장년친화 인사제도</h3>
+                            <span style="background: var(--secondary); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">심화</span>
+                        </div>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>• 장년근로자 적합 근무체계</li>
+                            <li>• 임금피크제 등 임금체계</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: var(--darker-gray); border-radius: 10px;">
+                    <h3 style="color: var(--white); margin-bottom: 15px; text-align: center;">📋 컨설팅 수준별 구분</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+                        <div>
+                            <span style="background: var(--accent); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600;">전문 (9개 분야)</span>
+                            <p style="color: var(--neutral); font-size: 0.9rem; margin-top: 10px;">기본적인 제도 설계 및 운영</p>
+                        </div>
+                        <div>
+                            <span style="background: var(--secondary); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600;">심화 (9개 분야)</span>
+                            <p style="color: var(--neutral); font-size: 0.9rem; margin-top: 10px;">고도화된 시스템 구축</p>
+                        </div>
+                        <div>
+                            <span style="background: var(--primary); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600;">진단 (1개 분야)</span>
+                            <p style="color: var(--neutral); font-size: 0.9rem; margin-top: 10px;">현황 진단 및 개선방안</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주요 컨설팅 실적 -->
+            <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--primary);">📈 주요 컨설팅 실적</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.3rem;">2024년 (5개사)</h3>
+                    <ul style="color: var(--neutral); line-height: 1.8;">
+                        <li>케빈랩㈜ - 직무분석·직무평가·직무급도입·평생학습체계 구축</li>
+                        <li>㈜이음솔루션즈 - 직무분석·직무평가·평가시스템 컨설팅</li>
+                        <li>대일몰드텍㈜ - 직무급도입·평생학습체계 구축</li>
+                        <li>엠씨에스테크㈜ - 직무분석·직무평가·평가시스템 구축</li>
+                        <li>㈜신승반점 - 직무급도입·평생학습체계·평가시스템 컨설팅</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.3rem;">2023년 (5개사)</h3>
+                    <ul style="color: var(--neutral); line-height: 1.8;">
+                        <li>남인천농협 - 직무분석·직무평가·직무급도입 컨설팅</li>
+                        <li>㈜우딘 - 직무분석·직무평가·평가체계 구축</li>
+                        <li>㈜유비씨 - 직무급도입·장년고용체계 구축</li>
+                        <li>㈜쏘렌드코리아 - 직무분석·직무평가·평가체계 구축</li>
+                        <li>㈜애드미러 - 직무급도입·평생학습체계 구축</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.3rem;">2022년 (8개사)</h3>
+                    <ul style="color: var(--neutral); line-height: 1.8;">
+                        <li>재단법인 안양산업진흥원 - 직무분석·직무평가·직무급도입</li>
+                        <li>㈜아이씨에이치 - 평생학습체계·안전한일터구축 컨설팅</li>
+                        <li>기타 6개사 - 직무분석·직무평가·평가체계 구축</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 이벤트 배너 -->
+            <div style="text-align:center; margin: 60px 0;">
+                <div style="display:inline-block; background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+                            color:white; padding:15px 30px; font-weight:700; border-radius:25px; font-size: 1.2rem; box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);">
+                    🎉 2025년 일터혁신 컨설팅 무료 신청 접수 중! (기업부담 0원)
+                </div>
+            </div>
+
+            <!-- 문의/제휴 -->
+            <div style="text-align:center; margin-bottom: 40px;">
+                <p style="font-size:1.3rem; color:#ff6b6b; margin-bottom:15px; font-weight:700;">
+                    💰 기업부담 0원으로 조직 혁신을 시작하세요!
+                </p>
+                <p style="font-size:1.1rem; color:var(--neutral); margin-bottom:10px;">
+                    컨설팅 비용 전액 무료 - 정부지원 100%
+                </p>
+                <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
+                    <span style="color:var(--primary);">연락처: 이후경 경영지도사</span> (010-9251-9743)
+                </p>
+                <p style="font-size:1.1rem; color:var(--neutral);">
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div style="text-align:center; margin-top: 80px; color:var(--neutral); font-size:0.9rem;">
+                © 2025 AI CAMP. All rights reserved. | 일터혁신 상생컨설팅 전문
+            </div>
+        </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────────────────────
+       프로필 페이지: 이후경 소장/경영지도사
+    ───────────────────────────────────────────────────────── -->
+    <div id="profile-page" class="service-detail">
+        <div class="back-button" onclick="showHome()">←</div>
+        <div class="service-detail-container">
+            <div class="service-detail-header fade-in">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img src="./images/1646879205431-3.jpg" alt="이후경 소장/경영지도사" 
+                         style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; 
+                                box-shadow: 0 10px 30px rgba(74, 158, 255, 0.3); border: 4px solid var(--primary);">
+                </div>
+                <h1 class="service-detail-title">이후경 소장/경영지도사</h1>
+                <p class="service-detail-subtitle">AI CAMP 대표 컨설턴트 | 28년 경력의 비즈니스 혁신 전문가</p>
+            </div>
+
+            <!-- 프로필 요약 -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">28년</div>
+                    <div class="stat-label">컨설팅 경력</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">프로젝트 수행</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">전문 자격증</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1권</div>
+                    <div class="stat-label">전문서적 저술</div>
+                </div>
+            </div>
+
+            <!-- 학력 및 자격 -->
+            <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--primary);">🎓 학력 / 자격</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div>
+                        <h3 style="color: var(--white); margin-bottom: 15px; font-size: 1.2rem;">학력</h3>
+                        <ul style="color: var(--neutral); line-height: 1.8;">
+                            <li>동아대학교 무역학과 졸업</li>
+                            <li>대전대학교 기술경영석사</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--white); margin-bottom: 15px; font-size: 1.2rem;">전문자격</h3>
+                        <ul style="color: var(--neutral); line-height: 1.8;">
+                            <li>경영지도사</li>
+                            <li>스마트마이스터</li>
+                            <li>온실가스관리기사</li>
+                            <li>산학연협력코디네이터</li>
+                            <li>창업보육전문매니저</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 현재 주요 이력 -->
+            <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--primary);">💼 현재 주요 이력</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                    <div>
+                        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.2rem;">주요 직책</h3>
+                        <ul style="color: var(--neutral); line-height: 1.8; font-size: 0.95rem;">
+                            <li>기업의별 경영지도센터 센터장</li>
+                            <li>AI CAMP 대표 컨설턴트</li>
+                            <li>아이엔제이컨설팅 책임 컨설턴트</li>
+                            <li>한국능률협회컨설팅 EXPERT</li>
+                            <li>한국기업전략연구소(KICS) 이사</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.2rem;">정부기관 전문위원</h3>
+                        <ul style="color: var(--neutral); line-height: 1.8; font-size: 0.95rem;">
+                            <li>IBK미래성장성 심의회 전문가</li>
+                            <li>중소벤처기업부 비즈니스지원단</li>
+                            <li>중소기업기술정보진흥원 평가위원</li>
+                            <li>중소기업진흥공단 평가위원</li>
+                            <li>경기/경기대진 테크노파크 평가위원</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.2rem;">전문기관 활동</h3>
+                        <ul style="color: var(--neutral); line-height: 1.8; font-size: 0.95rem;">
+                            <li>한국ESG경영개발원/지원협회 회원</li>
+                            <li>농림축산식품부 6차산업컨설턴트</li>
+                            <li>농림축산식품부 축산ICT 컨설턴트</li>
+                            <li>중소기업연수원 스마트팩토리 강사</li>
+                            <li>농림수산식품교육문화정보원 컨설턴트</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 전문 서비스 분야 -->
+            <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--primary);">🔧 전문 서비스 분야</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                        <h3 style="color: var(--accent); margin-bottom: 15px;">인사조직개발</h3>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>직무분석 및 직무평가</li>
+                            <li>임원/성과제도 설계</li>
+                            <li>임금구조개선</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                        <h3 style="color: var(--accent); margin-bottom: 15px;">경영혁신</h3>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>생산관리 및 원가관리</li>
+                            <li>재무컨설팅</li>
+                            <li>구조개선/원가절감</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                        <h3 style="color: var(--accent); margin-bottom: 15px;">기술사업화</h3>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>기술경영전략</li>
+                            <li>기업기술가치평가</li>
+                            <li>특허경영전략</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                        <h3 style="color: var(--accent); margin-bottom: 15px;">ESG/인증</h3>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>ESG경영 도입</li>
+                            <li>ISO 9001/14001</li>
+                            <li>벤처/이노비즈 인증</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                        <h3 style="color: var(--accent); margin-bottom: 15px;">스타트업</h3>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>비즈니스모델 진단</li>
+                            <li>창업 및 법인설립자문</li>
+                            <li>전략 컨설팅</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 25px; border-radius: 15px;">
+                        <h3 style="color: var(--accent); margin-bottom: 15px;">스마트팩토리</h3>
+                        <ul style="color: var(--neutral); line-height: 1.6; font-size: 0.9rem;">
+                            <li>스마트팩토리 구축</li>
+                            <li>고성과조직구축</li>
+                            <li>디지털 전환</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주요 컨설팅 경력 -->
+            <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--primary);">📈 주요 컨설팅 경력</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.3rem;">고용노동부 일터혁신컨설팅</h3>
+                    <div style="background: var(--light-gray); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <strong style="color: var(--white);">2024년 (5개사)</strong>
+                        <p style="color: var(--neutral); margin-top: 5px; line-height: 1.6;">
+                            케빈랩㈜, ㈜이음솔루션즈, 대일몰드텍㈜, 엠씨에스테크㈜, ㈜신승반점<br>
+                            직무분석·직무평가·직무급도입·평생학습체계·평가시스템 컨설팅
+                        </p>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <strong style="color: var(--white);">2023년 (5개사)</strong>
+                        <p style="color: var(--neutral); margin-top: 5px; line-height: 1.6;">
+                            남인천농협, ㈜우딘, ㈜유비씨, ㈜쏘렌드코리아, ㈜애드미러<br>
+                            직무분석·직무평가·직무급도입·평가체계·장년고용체계 컨설팅
+                        </p>
+                    </div>
+                    <div style="background: var(--light-gray); padding: 20px; border-radius: 10px;">
+                        <strong style="color: var(--white);">2022년 (8개사)</strong>
+                        <p style="color: var(--neutral); margin-top: 5px; line-height: 1.6;">
+                            재단법인 안양산업진흥원, ㈜아이씨에이치 등 8개사<br>
+                            직무분석·직무평가·직무급도입·평가체계·안전한일터구축·평생학습체계 구축
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.3rem;">기타 주요 프로젝트</h3>
+                    <ul style="color: var(--neutral); line-height: 1.8;">
+                        <li>한국암웨이BC조직 직무분석과 직무기술서, 직무매뉴얼과 조직진단 (2021)</li>
+                        <li>농림수산식품교육문화정보원 데이터활용컨설팅사업 (2020년~2023년)</li>
+                        <li>농림축산식품부 축산ICT 융복합 컨설팅 (2019년~2023년)</li>
+                        <li>한국능률협회(KMAC) 기업 조직진단, HRM, 구조개선컨설팅 사업 PM (2019년~)</li>
+                        <li>현대차 그룹 현대스틸산업 비즈니스모델 사업 타당성 검토 (2018)</li>
+                        <li>국방부 전역장병 스마트팩토리 직무교육 (2018)</li>
+                        <li>농협케미칼 공장통합이전 부지선정 컨설팅 (2018)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 경력 및 저서 -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">💼 주요 경력</h3>
+                    <ul style="color: var(--neutral); line-height: 1.8;">
+                        <li>1993년 현대그룹 공채입사</li>
+                        <li>현대그룹 고려산업개발 인사노무담당</li>
+                        <li>삼성생명 지점장</li>
+                    </ul>
+                </div>
+                <div style="background: var(--card-bg); border-radius: 20px; padding: 40px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">📚 저서</h3>
+                    <div style="background: var(--light-gray); padding: 20px; border-radius: 10px;">
+                        <strong style="color: var(--white);">병·의원 인사노무가이드</strong>
+                        <p style="color: var(--neutral); margin-top: 5px;">출판사: 경문사</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 연락처 -->
+            <div style="text-align:center; margin-bottom: 40px;">
+                <h2 style="color: var(--primary); margin-bottom: 20px; font-size: 2rem;">📞 상담 문의</h2>
+                <p style="font-size:1.1rem; color:var(--neutral); margin-bottom:10px;">
+                    전문 컨설팅 상담을 원하시면 언제든 연락주세요
+                </p>
+                <p style="font-size:1.3rem; font-weight:600; margin-bottom:10px;">
+                    <span style="color:var(--primary);">이후경 소장/경영지도사</span> (010-9251-9743)
+                </p>
+                <p style="font-size:1.1rem; color:var(--neutral);">
+                    E-MAIL: <a href="mailto:hongik423@gmail.com" style="color:var(--primary);">hongik423@gmail.com</a>
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div style="text-align:center; margin-top: 80px; color:var(--neutral); font-size:0.9rem;">
+                © 2025 AI CAMP. All rights reserved. | 이후경 소장/경영지도사 프로필
             </div>
         </div>
     </div>
@@ -1586,6 +2538,16 @@
             document.querySelectorAll('.service-detail').forEach(detail => {
                 detail.classList.remove('active');
             });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 프로필 페이지 표시
+        function showProfile() {
+            document.getElementById('main-page').style.display = 'none';
+            document.querySelectorAll('.service-detail').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            document.getElementById('profile-page').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
