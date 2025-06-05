@@ -686,7 +686,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="nav-link" onclick="showHome()">홈</a></li>
-                <li><a href="#services" class="nav-link">서비스</a></li>
+                <li><a href="#" class="nav-link" onclick="goToServices()">서비스</a></li>
                 <li><a href="#" class="nav-link" onclick="showProfile()">대표컨설턴트 소개</a></li>
                 <li><a href="#" class="nav-link" onclick="showContactModal()">문의하기</a></li>
                 <!-- "제안서 보기" 버튼: export=view 로 수정 -->
@@ -711,8 +711,8 @@
                 <h1 class="hero-title">AI로 혁신하는<br>비즈니스 성장 파트너</h1>
                 <p class="hero-subtitle">Business Model Zen 방법론을 통한 체계적인 비즈니스 혁신</p>
                 <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
-                    <a href="#services" class="hero-cta">서비스 살펴보기</a>
-                    <a href="#contact" class="hero-cta" style="background: var(--secondary); box-shadow: 0 10px 30px rgba(255, 138, 101, 0.3);">📞 무료 상담 신청</a>
+                    <a href="#" class="hero-cta" onclick="goToServices(); event.preventDefault();">서비스 살펴보기</a>
+                    <a href="#" class="hero-cta" onclick="showContactModal(); event.preventDefault();" style="background: var(--secondary); box-shadow: 0 10px 30px rgba(255, 138, 101, 0.3);">📞 무료 상담 신청</a>
                 </div>
             </div>
         </section>
@@ -897,8 +897,8 @@
 
             <!-- 메인 CTA 버튼 -->
             <div style="text-align: center; margin-top: 30px;">
-                <a href="tel:010-9251-9743" class="contact-cta" style="margin-right: 15px;">📞 바로 전화하기</a>
-                <a href="mailto:hongik423@gmail.com" class="contact-cta" style="background: var(--secondary); margin-left: 15px;">📧 이메일 보내기</a>
+                <a href="#" class="contact-cta" onclick="showContactModal(); event.preventDefault();" style="margin-right: 15px;">📞 상담 문의</a>
+                <a href="tel:010-9251-9743" class="contact-cta" style="background: var(--secondary); margin-left: 15px;">📞 바로 전화하기</a>
             </div>
         </section>
 
@@ -1034,7 +1034,7 @@
                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(255, 107, 107, 0.3)'">
                                 📋 상세 내용 보기
                             </button>
-                            <a href="tel:010-9251-9743" style="background: transparent; color: #ff6b6b; border: 2px solid #ff6b6b; padding: 15px 30px; border-radius: 25px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; display: inline-block;"
+                            <a href="#" onclick="showContactModal(); event.preventDefault();" style="background: transparent; color: #ff6b6b; border: 2px solid #ff6b6b; padding: 15px 30px; border-radius: 25px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; display: inline-block;"
                                onmouseover="this.style.background='#ff6b6b'; this.style.color='white'"
                                onmouseout="this.style.background='transparent'; this.style.color='#ff6b6b'">
                                 📞 무료 상담 신청
@@ -2661,6 +2661,23 @@
             });
             document.getElementById('profile-page').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 서비스 섹션으로 이동
+        function goToServices() {
+            // 메인 페이지 표시
+            document.getElementById('main-page').style.display = 'block';
+            document.querySelectorAll('.service-detail').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            // 서비스 섹션으로 스크롤
+            setTimeout(() => {
+                const servicesSection = document.getElementById('services');
+                if (servicesSection) {
+                    servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
         }
 
         // 서비스 상세페이지 표시
