@@ -4254,8 +4254,14 @@
 
         // 설문지 표시
         function showDiagnosticSurvey(serviceId) {
+            console.log(`🔍 진단 설문 호출됨 - 서비스 ID: ${serviceId}`);
             const survey = diagnosticSurveys[serviceId];
-            if (!survey) return;
+            if (!survey) {
+                console.error(`❌ 서비스 ID ${serviceId}에 대한 설문을 찾을 수 없습니다.`);
+                alert('설문을 찾을 수 없습니다. 다시 시도해 주세요.');
+                return;
+            }
+            console.log(`✅ 설문 데이터 로드 성공: ${survey.title}`);
 
             const surveyContent = document.getElementById('surveyContent');
             
@@ -4494,10 +4500,18 @@
             closeDiagnosticModal();
             
             // 설문지 모달 표시
+            console.log('📋 설문 모달 표시 시작...');
             const surveyModal = document.getElementById('surveyModal');
+            if (!surveyModal) {
+                console.error('❌ surveyModal 요소를 찾을 수 없습니다.');
+                alert('설문 화면을 표시할 수 없습니다. 페이지를 새로고침해 주세요.');
+                return;
+            }
             surveyModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
             setTimeout(() => {
                 surveyModal.style.opacity = '1';
+                console.log('✅ 설문 모달 표시 완료');
                 // 모달이 표시된 후 전화번호 포맷팅 초기화
                 initPhoneNumberFormatting();
             }, 10);
@@ -4515,6 +4529,8 @@
 
         // 구글시트로 데이터 전송 함수
         async function sendToGoogleSheets(surveyData) {
+            // 🔧 실제 배포된 Google Apps Script 웹앱 URL로 교체 필요  
+            // 📋 배포 가이드: 이미지_파일_안내.txt 파일의 "Google Apps Script 배포 가이드" 참조
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec'; // ✅ 설문 데이터 수집용 활성화됨
             
             try {
@@ -5040,6 +5056,8 @@
 
         // 상담신청 데이터를 Google Sheets로 전송
         async function sendConsultationToGoogleSheets(consultationData) {
+            // 🔧 실제 배포된 Google Apps Script 웹앱 URL로 교체 필요
+            // 📋 배포 가이드: 이미지_파일_안내.txt 파일의 "Google Apps Script 배포 가이드" 참조
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec';
             
             console.log('📤 상담신청 데이터 전송 시작:', consultationData);
@@ -5201,7 +5219,7 @@
         });
 
         // 상담신청 폼 제출
-        function submitConsultationForm(event) {
+        async function submitConsultationForm(event) {
             event.preventDefault();
             
             const form = document.getElementById('consultationForm');
@@ -5250,18 +5268,203 @@
             consultationFormData.privacyConsent = 'Y'; // 필수 동의 (제출 시 이미 확인됨)
             consultationFormData.marketingConsent = consultationMarketingConsent;
 
+            // 📎 첨부파일이 있는 경우 처리
+            if (attachedFiles.length > 0) {
+                try {
+                    // 파일들을 Base64로 변환하여 추가
+                    const filePromises = attachedFiles.map(async (file) => {
+                        const base64Data = await fileToBase64(file);
+                        return {
+                            name: file.name,
+                            size: file.size,
+                            type: file.type,
+                            base64Data: base64Data
+                        };
+                    });
+                    
+                    const attachmentData = await Promise.all(filePromises);
+                    consultationFormData.attachments = attachmentData;
+                    
+                    console.log('📎 첨부파일 정보:', attachmentData.map(f => `${f.name} (${formatFileSize(f.size)})`));
+                } catch (error) {
+                    console.error('파일 처리 오류:', error);
+                    alert('❌ 첨부파일 처리 중 오류가 발생했습니다.\n파일 없이 상담신청을 계속하시겠습니까?');
+                    consultationFormData.attachments = [];
+                }
+            }
+
             // 상담신청 데이터 기록
             recordConsultationRequest('상담신청폼', '온라인폼', consultationFormData).then((success) => {
                 if (success) {
-                    alert('✅ 상담신청이 완료되었습니다!\n신청일 당일 중 연락드리겠습니다.');
+                    const attachmentMessage = attachedFiles.length > 0 ? 
+                        `\n📎 첨부파일 ${attachedFiles.length}개가 함께 전송되었습니다.` : '';
+                    alert(`✅ 상담신청이 완료되었습니다!${attachmentMessage}\n신청일 당일 중 연락드리겠습니다.`);
                     closeConsultationForm();
                     form.reset();
+                    // 첨부파일 목록 초기화
+                    attachedFiles = [];
+                    updateFileList();
                 } else {
                     alert('❌ 상담신청 전송 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주시거나 전화로 연락 부탁드립니다.\n📞 010-9251-9743');
                 }
             }).catch((error) => {
                 console.error('상담신청 오류:', error);
                 alert('❌ 상담신청 전송 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주시거나 전화로 연락 부탁드립니다.\n📞 010-9251-9743');
+            });
+        }
+
+        // 📎 파일 첨부 기능 관련 함수들
+        let attachedFiles = [];
+
+        // 파일 선택 처리
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            processFiles(files);
+        }
+
+        // 드래그 앤 드롭 처리
+        function handleFileDrop(event) {
+            event.preventDefault();
+            const files = Array.from(event.dataTransfer.files);
+            processFiles(files);
+            
+            // 드래그 상태 원래대로 복원
+            const uploadArea = document.getElementById('fileUploadArea');
+            uploadArea.style.background = 'rgba(76, 175, 80, 0.1)';
+            uploadArea.style.borderColor = '#4CAF50';
+        }
+
+        // 파일 처리
+        function processFiles(files) {
+            const allowedTypes = [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'image/jpeg',
+                'image/png'
+            ];
+
+            const maxSize = 10 * 1024 * 1024; // 10MB
+
+            files.forEach(file => {
+                if (!allowedTypes.includes(file.type)) {
+                    alert(`❌ 지원하지 않는 파일 형식입니다: ${file.name}\n지원 형식: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG`);
+                    return;
+                }
+
+                if (file.size > maxSize) {
+                    alert(`❌ 파일 크기가 너무 큽니다: ${file.name}\n최대 크기: 10MB`);
+                    return;
+                }
+
+                // 중복 파일 체크
+                if (attachedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    alert(`⚠️ 이미 첨부된 파일입니다: ${file.name}`);
+                    return;
+                }
+
+                attachedFiles.push(file);
+                updateFileList();
+            });
+        }
+
+        // 파일 목록 업데이트
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            const fileItems = document.getElementById('fileItems');
+
+            if (attachedFiles.length === 0) {
+                fileList.style.display = 'none';
+                return;
+            }
+
+            fileList.style.display = 'block';
+            fileItems.innerHTML = '';
+
+            attachedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.style.cssText = `
+                    display: flex; 
+                    justify-content: space-between; 
+                    align-items: center; 
+                    padding: 12px 15px; 
+                    background: rgba(76, 175, 80, 0.1); 
+                    border-radius: 8px; 
+                    border: 1px solid rgba(76, 175, 80, 0.3);
+                `;
+
+                const fileInfo = document.createElement('div');
+                fileInfo.style.cssText = 'display: flex; align-items: center; gap: 10px; flex: 1;';
+                
+                const fileIcon = getFileIcon(file.type);
+                const fileSize = formatFileSize(file.size);
+
+                fileInfo.innerHTML = `
+                    <span style="font-size: 1.5rem;">${fileIcon}</span>
+                    <div>
+                        <div style="color: var(--neutral); font-weight: 600; font-size: 0.95rem;">${file.name}</div>
+                        <div style="color: #888; font-size: 0.8rem;">${fileSize}</div>
+                    </div>
+                `;
+
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.innerHTML = '❌';
+                removeBtn.style.cssText = `
+                    background: none; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: 1rem; 
+                    padding: 5px; 
+                    border-radius: 50%; 
+                    transition: all 0.3s ease;
+                `;
+                removeBtn.onmouseover = () => removeBtn.style.background = 'rgba(255, 107, 107, 0.2)';
+                removeBtn.onmouseout = () => removeBtn.style.background = 'none';
+                removeBtn.onclick = () => removeFile(index);
+
+                fileItem.appendChild(fileInfo);
+                fileItem.appendChild(removeBtn);
+                fileItems.appendChild(fileItem);
+            });
+        }
+
+        // 파일 제거
+        function removeFile(index) {
+            attachedFiles.splice(index, 1);
+            updateFileList();
+        }
+
+        // 파일 아이콘 반환
+        function getFileIcon(fileType) {
+            if (fileType.includes('pdf')) return '📄';
+            if (fileType.includes('word')) return '📝';
+            if (fileType.includes('sheet') || fileType.includes('excel')) return '📊';
+            if (fileType.includes('presentation') || fileType.includes('powerpoint')) return '📽️';
+            if (fileType.includes('image')) return '🖼️';
+            return '📎';
+        }
+
+        // 파일 크기 포맷
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Base64로 파일 변환 (구글시트 전송용)
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
             });
         }
     </script>
@@ -5460,6 +5663,30 @@
                     <div>
                         <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">추가 요청사항</label>
                         <textarea name="additionalRequest" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease; resize: vertical;" onfocus="this.style.borderColor='var(--secondary)'" onblur="this.style.borderColor='#e0e0e0'" placeholder="상담 시 중점적으로 다루고 싶은 내용이나 궁금한 점을 자유롭게 작성해 주세요"></textarea>
+                    </div>
+
+                    <!-- 📎 파일 첨부 섹션 추가 -->
+                    <div style="margin-top: 20px;">
+                        <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">📎 참고자료 첨부 (선택사항)</label>
+                        <div style="background: rgba(76, 175, 80, 0.1); border: 2px dashed #4CAF50; border-radius: 10px; padding: 20px; text-align: center; transition: all 0.3s ease; cursor: pointer;" 
+                             id="fileUploadArea" 
+                             onclick="document.getElementById('fileInput').click()"
+                             ondragover="event.preventDefault(); this.style.background='rgba(76, 175, 80, 0.2)'; this.style.borderColor='#66BB6A'"
+                             ondragleave="this.style.background='rgba(76, 175, 80, 0.1)'; this.style.borderColor='#4CAF50'"
+                             ondrop="handleFileDrop(event)">
+                            <div style="font-size: 2rem; margin-bottom: 10px; color: #4CAF50;">📄</div>
+                            <p style="color: var(--neutral); margin: 0; font-size: 1rem;">
+                                <strong>파일을 드래그하거나 클릭하여 업로드</strong><br>
+                                <small style="color: #888; font-size: 0.9rem;">지원 형식: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG (최대 10MB)</small>
+                            </p>
+                            <input type="file" id="fileInput" name="attachments" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileSelect(event)">
+                        </div>
+                        
+                        <!-- 선택된 파일 목록 표시 -->
+                        <div id="fileList" style="margin-top: 15px; display: none;">
+                            <h4 style="color: #4CAF50; font-size: 1rem; margin-bottom: 10px;">📋 첨부된 파일:</h4>
+                            <div id="fileItems" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                        </div>
                     </div>
                 </div>
 

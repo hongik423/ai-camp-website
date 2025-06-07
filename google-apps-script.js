@@ -2,6 +2,8 @@
  * AI CAMP 웹사이트 진단 설문 및 상담신청 데이터 수집용 Google Apps Script
  * 설문조사 시트: 13kcd9Hs1BGaNosfm3hjyd3KIIsJ7Jc-ib4Jawcvwa1Q
  * 상담신청 시트: 1LQNeT0abhMHXktrNjRbxl2XEFWVCwcYr5kVTAcRvpfM
+ * 
+ * 📎 업데이트: 상담신청 시 파일 첨부 기능 지원 추가
  */
 
 // 스프레드시트 ID 설정
@@ -131,7 +133,7 @@ function handleSurveyRequest(data) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// 상담신청 데이터 처리 함수 (별도 스프레드시트)
+// 상담신청 데이터 처리 함수 (별도 스프레드시트) - 📎 파일 첨부 지원 추가
 function handleConsultationRequest(data) {
   // 상담신청 전용 스프레드시트 접근
   const spreadsheet = SpreadsheetApp.openById(CONSULTATION_SPREADSHEET_ID);
@@ -143,7 +145,7 @@ function handleConsultationRequest(data) {
     const headers = [
       '접수일시', '상담유형', '연락방법', '연락정보', '기업명', '담당자명', 
       '전화번호', '이메일', '상담분야', '시급성', '추가요청사항', 
-      '개인정보동의', '마케팅동의', '참조URL', 'UserAgent'
+      '첨부파일수', '첨부파일목록', '개인정보동의', '마케팅동의', '참조URL', 'UserAgent'
     ];
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     
@@ -156,6 +158,30 @@ function handleConsultationRequest(data) {
       
     // 열 너비 자동 조정
     sheet.autoResizeColumns(1, headers.length);
+  }
+  
+  // 📎 첨부파일 정보 처리
+  let attachmentCount = 0;
+  let attachmentList = '';
+  
+  if (data.attachments && data.attachments.length > 0) {
+    attachmentCount = data.attachments.length;
+    attachmentList = data.attachments.map(file => 
+      `${file.name} (${formatFileSize(file.size)})`
+    ).join(', ');
+    
+    // 구글 드라이브에 첨부파일 저장 (선택사항)
+    try {
+      const folder = createAttachmentFolder(data.companyName, data.timestamp);
+      data.attachments.forEach(file => {
+        if (file.base64Data) {
+          const blob = Utilities.newBlob(Utilities.base64Decode(file.base64Data), file.type, file.name);
+          folder.createFile(blob);
+        }
+      });
+    } catch (error) {
+      console.log('첨부파일 저장 오류 (계속 진행):', error.toString());
+    }
   }
   
   // 데이터 행 구성
@@ -171,6 +197,8 @@ function handleConsultationRequest(data) {
     data.consultationArea,
     data.urgency,
     data.additionalRequest,
+    attachmentCount, // 첨부파일 개수
+    attachmentList,  // 첨부파일 목록
     data.privacyConsent || 'Y',
     data.marketingConsent || 'N',
     data.referenceUrl,
@@ -193,6 +221,11 @@ function handleConsultationRequest(data) {
   
   sheet.getRange(lastRow, 10, 1, 1).setBackground(urgencyColor); // 시급성 칸 색상
   
+  // 첨부파일이 있는 경우 강조
+  if (attachmentCount > 0) {
+    sheet.getRange(lastRow, 12, 1, 2).setBackground('#fff8e1'); // 첨부파일 칸 강조
+  }
+  
   // 데이터 행에 테두리 적용
   sheet.getRange(lastRow, 1, 1, sheet.getLastColumn())
     .setBorder(true, true, true, true, true, true);
@@ -203,14 +236,42 @@ function handleConsultationRequest(data) {
       success: true,
       message: '상담신청이 상담신청 전용 시트에 성공적으로 저장되었습니다.',
       timestamp: data.timestamp,
+      attachmentCount: attachmentCount,
       spreadsheetUrl: `https://docs.google.com/spreadsheets/d/${CONSULTATION_SPREADSHEET_ID}/edit`
     }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+// 📁 첨부파일을 위한 구글 드라이브 폴더 생성
+function createAttachmentFolder(companyName, timestamp) {
+  const folderName = `AI_CAMP_상담신청_${companyName}_${timestamp.replace(/[:/\s]/g, '_')}`;
+  
+  // 루트 폴더에서 AI_CAMP_첨부파일 폴더 찾거나 생성
+  const folders = DriveApp.getFoldersByName('AI_CAMP_첨부파일');
+  let parentFolder;
+  
+  if (folders.hasNext()) {
+    parentFolder = folders.next();
+  } else {
+    parentFolder = DriveApp.createFolder('AI_CAMP_첨부파일');
+  }
+  
+  // 개별 상담신청용 하위 폴더 생성
+  return parentFolder.createFolder(folderName);
+}
+
+// 📏 파일 크기 포맷 함수
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
 function doGet(e) {
   // GET 요청용 (테스트)
   return ContentService
-    .createTextOutput('AI CAMP 진단 설문 및 상담신청 데이터 수집 API가 정상 작동 중입니다.\n\n설문조사 시트: ' + SURVEY_SPREADSHEET_ID + '\n상담신청 시트: ' + CONSULTATION_SPREADSHEET_ID)
+    .createTextOutput('AI CAMP 진단 설문 및 상담신청 데이터 수집 API가 정상 작동 중입니다.\n\n📋 설문조사 시트: ' + SURVEY_SPREADSHEET_ID + '\n📞 상담신청 시트: ' + CONSULTATION_SPREADSHEET_ID + '\n\n📎 첨부파일 지원: 활성화됨')
     .setMimeType(ContentService.MimeType.TEXT);
 } 
