@@ -3276,25 +3276,35 @@
             </div>
 
             <!-- 연락 방법 선택 -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px;">
                 <!-- 전화상담 -->
-                <button onclick="makePhoneCall()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); color: white; border: none; padding: 30px 20px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);"
+                <button onclick="makePhoneCall()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%); color: white; border: none; padding: 25px 15px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);"
                         onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(255, 107, 107, 0.4)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(255, 107, 107, 0.3)'">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px; animation: phone-ring 2s ease-in-out infinite;">📞</div>
-                    <h3 style="margin: 0 0 10px 0; font-size: 1.3rem; font-weight: 700;">즉시 전화상담</h3>
-                    <p style="margin: 0; font-size: 1.1rem; opacity: 0.9; font-weight: 600;">010-9251-9743</p>
-                    <p style="margin: 10px 0 0 0; font-size: 0.9rem; opacity: 0.8;">🚀 지금 바로 연결</p>
+                    <div style="font-size: 2rem; margin-bottom: 10px; animation: phone-ring 2s ease-in-out infinite;">📞</div>
+                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700;">즉시 전화상담</h3>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.9; font-weight: 600;">010-9251-9743</p>
+                    <p style="margin: 8px 0 0 0; font-size: 0.8rem; opacity: 0.8;">🚀 지금 바로 연결</p>
                 </button>
 
                 <!-- 이메일 문의 -->
-                <button onclick="sendEmail()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; border: none; padding: 30px 20px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(74, 158, 255, 0.3);"
+                <button onclick="sendEmail()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; border: none; padding: 25px 15px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(74, 158, 255, 0.3);"
                         onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(74, 158, 255, 0.4)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(74, 158, 255, 0.3)'">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">📧</div>
-                    <h3 style="margin: 0 0 10px 0; font-size: 1.3rem; font-weight: 700;">이메일 문의</h3>
-                    <p style="margin: 0; font-size: 1rem; opacity: 0.9; font-weight: 600;">hongik423@gmail.com</p>
-                    <p style="margin: 10px 0 0 0; font-size: 0.9rem; opacity: 0.8;">⏰ 24시간 접수 / 1일 내 답변</p>
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📧</div>
+                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700;">이메일 문의</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 600;">hongik423@gmail.com</p>
+                    <p style="margin: 8px 0 0 0; font-size: 0.8rem; opacity: 0.8;">⏰ 24시간 접수</p>
+                </button>
+
+                <!-- 상담신청 폼 -->
+                <button onclick="showConsultationForm()" style="background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%); color: white; border: none; padding: 25px 15px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);"
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(76, 175, 80, 0.4)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(76, 175, 80, 0.3)'">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📝</div>
+                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700;">상담신청 폼</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.9; font-weight: 600;">맞춤 상담</p>
+                    <p style="margin: 8px 0 0 0; font-size: 0.8rem; opacity: 0.8;">📊 체계적 관리</p>
                 </button>
             </div>
 
@@ -4535,7 +4545,7 @@
 
         // 구글시트로 데이터 전송 함수
         async function sendToGoogleSheets(surveyData) {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec'; // Google Apps Script 웹앱 URL (나중에 설정)
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec'; // ✅ 설문 데이터 수집용 활성화됨
             
             try {
                 const response = await fetch(scriptURL, {
@@ -4969,6 +4979,147 @@
                 document.body.style.overflow = 'auto';
             }, 300);
         }
+
+        // 전화 걸기
+        function makePhoneCall() {
+            // 상담신청 데이터 수집
+            recordConsultationRequest('전화상담', '010-9251-9743');
+            window.location.href = 'tel:010-9251-9743';
+        }
+
+        // 이메일 보내기
+        function sendEmail() {
+            // 상담신청 데이터 수집
+            recordConsultationRequest('이메일문의', 'hongik423@gmail.com');
+            window.location.href = 'mailto:hongik423@gmail.com?subject=AI CAMP 상담 문의&body=안녕하세요. AI CAMP 상담을 문의드립니다.';
+        }
+
+        // 상담신청 폼 표시
+        function showConsultationForm() {
+            const modal = document.getElementById('consultationFormModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 10);
+            }
+        }
+
+        // 상담신청 폼 모달 닫기
+        function closeConsultationForm() {
+            const modal = document.getElementById('consultationFormModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+
+        // 상담신청 데이터 기록
+        async function recordConsultationRequest(method, contact, formData = {}) {
+            const consultationData = {
+                timestamp: new Date().toLocaleString('ko-KR'),
+                consultationType: '상담신청',
+                contactMethod: method,
+                contactInfo: contact,
+                companyName: formData.companyName || '',
+                contactName: formData.contactName || '',
+                phoneNumber: formData.phoneNumber || '',
+                email: formData.email || '',
+                consultationArea: formData.consultationArea || '',
+                urgency: formData.urgency || '',
+                additionalRequest: formData.additionalRequest || '',
+                referenceUrl: window.location.href,
+                userAgent: navigator.userAgent
+            };
+
+            try {
+                // Google Sheets에 상담신청 데이터 전송
+                await sendConsultationToGoogleSheets(consultationData);
+                console.log('📞 상담신청 데이터가 성공적으로 저장되었습니다.');
+            } catch (error) {
+                console.error('❌ 상담신청 데이터 저장 오류:', error);
+            }
+        }
+
+        // 상담신청 데이터를 Google Sheets로 전송
+        async function sendConsultationToGoogleSheets(consultationData) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec';
+            
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'consultation',
+                        data: consultationData
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('✅ 상담신청 데이터가 구글시트에 성공적으로 저장되었습니다.');
+                    return true;
+                } else {
+                    console.error('❌ 상담신청 데이터 저장 실패:', response.status);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ 상담신청 구글시트 연동 오류:', error);
+                return false;
+            }
+        }
+
+        // 상담신청 폼 제출
+        function submitConsultationForm(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('consultationForm');
+            const formData = new FormData(form);
+            
+            const consultationFormData = {
+                companyName: formData.get('companyName'),
+                contactName: formData.get('contactName'),
+                phoneNumber: formData.get('phoneNumber'),
+                email: formData.get('email'),
+                consultationArea: formData.get('consultationArea'),
+                urgency: formData.get('urgency'),
+                additionalRequest: formData.get('additionalRequest')
+            };
+
+            // 필수 정보 검증
+            if (!consultationFormData.companyName || !consultationFormData.contactName || 
+                !consultationFormData.phoneNumber || !consultationFormData.email) {
+                alert('필수 정보를 모두 입력해 주세요.');
+                return;
+            }
+
+            // 이메일 형식 검증
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(consultationFormData.email)) {
+                alert('올바른 이메일 주소를 입력해 주세요.');
+                return;
+            }
+
+            // 전화번호 검증
+            const phoneRegex = /^[0-9-+\s()]+$/;
+            if (!phoneRegex.test(consultationFormData.phoneNumber)) {
+                alert('올바른 전화번호를 입력해 주세요.');
+                return;
+            }
+
+            // 상담신청 데이터 기록
+            recordConsultationRequest('상담신청폼', '온라인폼', consultationFormData).then(() => {
+                alert('상담신청이 완료되었습니다!\n빠른 시일 내에 연락드리겠습니다.');
+                closeConsultationForm();
+                form.reset();
+            });
+        }
     </script>
 
     <!-- ─────────────────────────────────────────────────────────
@@ -5084,6 +5235,104 @@
             
             <!-- 결과 내용 -->
             <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <!-- 상담신청 폼 모달 -->
+    <div id="consultationFormModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10003; align-items: center; justify-content: center; backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s ease;">
+        <div style="background: var(--card-bg); border-radius: 30px; padding: 50px; max-width: 600px; width: 90%; position: relative; border: 3px solid #4CAF50; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5); max-height: 85vh; overflow-y: auto;">
+            <!-- 닫기 버튼 -->
+            <button onclick="closeConsultationForm()" style="position: absolute; top: 20px; right: 25px; background: rgba(255, 255, 255, 0.1); border: none; color: var(--neutral); font-size: 28px; cursor: pointer; padding: 5px; width: 45px; height: 45px; border-radius: 50%; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255, 107, 107, 0.2)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">✕</button>
+            
+            <!-- 모달 헤더 -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2.5rem; animation: pulse 2s ease-in-out infinite;">📝</div>
+                <h2 style="color: #4CAF50; margin-bottom: 15px; font-size: 2.2rem; font-weight: 800;">상담신청 폼</h2>
+                <p style="color: var(--neutral); font-size: 1.2rem; line-height: 1.6;">정확한 상담을 위해 기본 정보를 입력해 주세요</p>
+                <div style="background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%); color: white; padding: 8px 20px; border-radius: 20px; display: inline-block; margin-top: 10px; font-weight: 700; font-size: 0.9rem;">📞 1시간 내 연락보장</div>
+            </div>
+
+            <!-- 상담신청 폼 -->
+            <form id="consultationForm" onsubmit="submitConsultationForm(event)" style="display: flex; flex-direction: column; gap: 25px;">
+                <!-- 기업 정보 -->
+                <div style="background: rgba(76, 175, 80, 0.05); padding: 25px; border-radius: 15px; border: 2px solid rgba(76, 175, 80, 0.2);">
+                    <h3 style="color: #4CAF50; margin-bottom: 20px; font-size: 1.4rem; font-weight: 700;">🏢 기업 정보</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">기업명 *</label>
+                            <input type="text" name="companyName" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='#4CAF50'" onblur="this.style.borderColor='#e0e0e0'" placeholder="회사명을 입력하세요">
+                        </div>
+                        <div>
+                            <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">담당자명 *</label>
+                            <input type="text" name="contactName" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='#4CAF50'" onblur="this.style.borderColor='#e0e0e0'" placeholder="담당자명을 입력하세요">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">전화번호 *</label>
+                            <input type="tel" name="phoneNumber" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='#4CAF50'" onblur="this.style.borderColor='#e0e0e0'" placeholder="연락받을 번호를 입력하세요">
+                        </div>
+                        <div>
+                            <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">이메일 *</label>
+                            <input type="email" name="email" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='#4CAF50'" onblur="this.style.borderColor='#e0e0e0'" placeholder="이메일 주소를 입력하세요">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 상담 정보 -->
+                <div style="background: rgba(255, 138, 101, 0.05); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 138, 101, 0.2);">
+                    <h3 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700;">💡 상담 정보</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">상담 분야</label>
+                            <select name="consultationArea" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='var(--secondary)'" onblur="this.style.borderColor='#e0e0e0'">
+                                <option value="">선택해 주세요</option>
+                                <option value="AI생산성혁신">AI 생산성혁신</option>
+                                <option value="정책자금">정책자금 확보</option>
+                                <option value="경매활용">공장경매 활용</option>
+                                <option value="웹사이트제작">웹사이트 제작</option>
+                                <option value="세금환급">세금환급</option>
+                                <option value="ISO인증">ISO·ESG 인증</option>
+                                <option value="일터혁신">일터혁신</option>
+                                <option value="종합상담">종합 상담</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">상담 시급성</label>
+                            <select name="urgency" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='var(--secondary)'" onblur="this.style.borderColor='#e0e0e0'">
+                                <option value="">선택해 주세요</option>
+                                <option value="매우급함">매우 급함 (1주 내)</option>
+                                <option value="급함">급함 (1개월 내)</option>
+                                <option value="보통">보통 (3개월 내)</option>
+                                <option value="여유있음">여유 있음 (6개월 내)</option>
+                                <option value="장기계획">장기 계획</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="color: var(--neutral); font-weight: 600; margin-bottom: 8px; display: block;">추가 요청사항</label>
+                        <textarea name="additionalRequest" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; background: var(--card-bg); color: var(--white); font-size: 1rem; transition: border-color 0.3s ease; resize: vertical;" onfocus="this.style.borderColor='var(--secondary)'" onblur="this.style.borderColor='#e0e0e0'" placeholder="상담 시 중점적으로 다루고 싶은 내용이나 궁금한 점을 자유롭게 작성해 주세요"></textarea>
+                    </div>
+                </div>
+
+                <!-- 제출 버튼 -->
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button type="button" onclick="closeConsultationForm()" style="flex: 1; background: var(--dark-gray); color: var(--neutral); border: 2px solid #4CAF50; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-size: 1.1rem;"
+                            onmouseover="this.style.background='rgba(76, 175, 80, 0.1)'; this.style.borderColor='#66BB6A'"
+                            onmouseout="this.style.background='var(--dark-gray)'; this.style.borderColor='#4CAF50'">
+                        취소
+                    </button>
+                    <button type="submit" style="flex: 2; background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%); color: white; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-size: 1.1rem;"
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(76, 175, 80, 0.4)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        📞 상담신청 완료
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
