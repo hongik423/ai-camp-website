@@ -1,7 +1,12 @@
 /**
  * AI CAMP 웹사이트 진단 설문 및 상담신청 데이터 수집용 Google Apps Script
- * 구글시트 ID: 13kcd9Hs1BGaNosfm3hjyd3KIIsJ7Jc-ib4Jawcvwa1Q
+ * 설문조사 시트: 13kcd9Hs1BGaNosfm3hjyd3KIIsJ7Jc-ib4Jawcvwa1Q
+ * 상담신청 시트: 1LQNeT0abhMHXktrNjRbxl2XEFWVCwcYr5kVTAcRvpfM
  */
+
+// 스프레드시트 ID 설정
+const SURVEY_SPREADSHEET_ID = '13kcd9Hs1BGaNosfm3hjyd3KIIsJ7Jc-ib4Jawcvwa1Q';
+const CONSULTATION_SPREADSHEET_ID = '1LQNeT0abhMHXktrNjRbxl2XEFWVCwcYr5kVTAcRvpfM';
 
 function doPost(e) {
   try {
@@ -26,11 +31,10 @@ function doPost(e) {
   }
 }
 
-// 설문 데이터 처리 함수
+// 설문 데이터 처리 함수 (별도 스프레드시트)
 function handleSurveyRequest(data) {
-  // 구글시트 접근
-  const spreadsheetId = '13kcd9Hs1BGaNosfm3hjyd3KIIsJ7Jc-ib4Jawcvwa1Q';
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  // 설문조사 전용 스프레드시트 접근
+  const spreadsheet = SpreadsheetApp.openById(SURVEY_SPREADSHEET_ID);
   let sheet = spreadsheet.getSheetByName('설문조사');
   
   // 설문조사 시트가 없으면 생성
@@ -51,6 +55,9 @@ function handleSurveyRequest(data) {
       .setFontColor('#ffffff')
       .setFontWeight('bold')
       .setHorizontalAlignment('center');
+      
+    // 열 너비 자동 조정
+    sheet.autoResizeColumns(1, headers.length);
   }
   
   // 등급 계산
@@ -109,24 +116,25 @@ function handleSurveyRequest(data) {
   
   sheet.getRange(lastRow, 9, 1, 1).setBackground(gradeColor); // 등급 칸 색상
   
-  // 자동 열 너비 조정
-  sheet.autoResizeColumns(1, sheet.getLastColumn());
+  // 데이터 행에 테두리 적용
+  sheet.getRange(lastRow, 1, 1, sheet.getLastColumn())
+    .setBorder(true, true, true, true, true, true);
   
   // 성공 응답
   return ContentService
     .createTextOutput(JSON.stringify({
       success: true,
-      message: '설문 데이터가 성공적으로 저장되었습니다.',
-      timestamp: data.timestamp
+      message: '설문 데이터가 설문조사 전용 시트에 성공적으로 저장되었습니다.',
+      timestamp: data.timestamp,
+      spreadsheetUrl: `https://docs.google.com/spreadsheets/d/${SURVEY_SPREADSHEET_ID}/edit`
     }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// 상담신청 데이터 처리 함수
+// 상담신청 데이터 처리 함수 (별도 스프레드시트)
 function handleConsultationRequest(data) {
-  // 구글시트 접근
-  const spreadsheetId = '13kcd9Hs1BGaNosfm3hjyd3KIIsJ7Jc-ib4Jawcvwa1Q';
-  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  // 상담신청 전용 스프레드시트 접근
+  const spreadsheet = SpreadsheetApp.openById(CONSULTATION_SPREADSHEET_ID);
   let sheet = spreadsheet.getSheetByName('상담신청');
   
   // 상담신청 시트가 없으면 생성
@@ -134,7 +142,8 @@ function handleConsultationRequest(data) {
     sheet = spreadsheet.insertSheet('상담신청');
     const headers = [
       '접수일시', '상담유형', '연락방법', '연락정보', '기업명', '담당자명', 
-      '전화번호', '이메일', '상담분야', '시급성', '추가요청사항', '개인정보동의', '마케팅동의', '참조URL', 'UserAgent'
+      '전화번호', '이메일', '상담분야', '시급성', '추가요청사항', 
+      '개인정보동의', '마케팅동의', '참조URL', 'UserAgent'
     ];
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     
@@ -144,6 +153,9 @@ function handleConsultationRequest(data) {
       .setFontColor('#ffffff')
       .setFontWeight('bold')
       .setHorizontalAlignment('center');
+      
+    // 열 너비 자동 조정
+    sheet.autoResizeColumns(1, headers.length);
   }
   
   // 데이터 행 구성
@@ -181,15 +193,17 @@ function handleConsultationRequest(data) {
   
   sheet.getRange(lastRow, 10, 1, 1).setBackground(urgencyColor); // 시급성 칸 색상
   
-  // 자동 열 너비 조정
-  sheet.autoResizeColumns(1, sheet.getLastColumn());
+  // 데이터 행에 테두리 적용
+  sheet.getRange(lastRow, 1, 1, sheet.getLastColumn())
+    .setBorder(true, true, true, true, true, true);
   
   // 성공 응답
   return ContentService
     .createTextOutput(JSON.stringify({
       success: true,
-      message: '상담신청이 성공적으로 저장되었습니다.',
-      timestamp: data.timestamp
+      message: '상담신청이 상담신청 전용 시트에 성공적으로 저장되었습니다.',
+      timestamp: data.timestamp,
+      spreadsheetUrl: `https://docs.google.com/spreadsheets/d/${CONSULTATION_SPREADSHEET_ID}/edit`
     }))
     .setMimeType(ContentService.MimeType.JSON);
 }
@@ -197,6 +211,6 @@ function handleConsultationRequest(data) {
 function doGet(e) {
   // GET 요청용 (테스트)
   return ContentService
-    .createTextOutput('AI CAMP 진단 설문 및 상담신청 데이터 수집 API가 정상 작동 중입니다.')
+    .createTextOutput('AI CAMP 진단 설문 및 상담신청 데이터 수집 API가 정상 작동 중입니다.\n\n설문조사 시트: ' + SURVEY_SPREADSHEET_ID + '\n상담신청 시트: ' + CONSULTATION_SPREADSHEET_ID)
     .setMimeType(ContentService.MimeType.TEXT);
 } 
