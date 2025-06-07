@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI CAMP - 기업 혁신 컨설팅 전문가</title>
+    <title>AI CAMP - AI로 혁신하는 비즈니스 성장 파트너</title>
     <style>
         * {
             margin: 0;
@@ -26,9 +26,11 @@
         }
         
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
             font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         .hero p {
@@ -83,6 +85,18 @@
             color: #2d5a27;
             margin-bottom: 15px;
             font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .service-card ul {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .service-card ul li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 5px;
         }
         
         .contact {
@@ -142,22 +156,35 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <h1>🚀 AI CAMP</h1>
-        <p>기업 혁신과 성장을 위한 전문 컨설팅</p>
+        <h1>AI로 혁신하는<br>비즈니스 성장 파트너</h1>
+        <p>Business Model Zen 방법론을 통한 체계적인 비즈니스 혁신</p>
+        <div style="margin: 30px 0;">
+            <p style="font-size: 1.3rem; margin-bottom: 15px;">🔍 우리 회사 현재 상태는?</p>
+            <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 20px;">3분 만에 전문가 수준의 진단을 받아보세요</p>
+        </div>
         <button class="btn-primary" onclick="showDiagnosticModal()">
-            🔍 무료 진단 시작하기
+            📊 무료 진단 시작 (7개 전문 영역 · 약 3분 소요)
         </button>
     </section>
 
     <!-- Services Section -->
     <section class="services">
         <h2 style="text-align: center; color: #2d5a27; margin-bottom: 50px; font-size: 2.5rem;">
-            💡 전문 서비스
+            AI CAMP 핵심 서비스
         </h2>
+        <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 40px;">
+            귀사의 성장을 위한 7가지 전문 솔루션
+        </p>
         <div class="service-grid">
             <div class="service-card">
-                <h3>🚀 생산성혁신 컨설팅</h3>
-                <p>AI 기반 업무 프로세스 혁신으로 생산성 30% 향상</p>
+                <h3>🚀 AI CAMP BM – 생산성혁신 컨설팅</h3>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">🎯 AI로 일하는 즐거움을 되찾아 드립니다</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>반복업무로 인한 생산성 저하 (30-40%) 해결</li>
+                    <li>직원 몰입도 향상·이직률 감소</li>
+                    <li>AI 도구 활용 극대화</li>
+                    <li>디지털 역량 격차 해소</li>
+                </ul>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(1)">
                     🔍 무료 진단
                 </button>
@@ -165,40 +192,84 @@
             
             <div class="service-card">
                 <h3>💰 정책자금 활용 자문</h3>
-                <p>정부지원 정책자금 확보 및 활용 전략 수립</p>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">💎 사업전환자금·구조개선자금 전문 컨설팅</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>🔥 사업전환자금 신청 전문 지원</li>
+                    <li>🔥 구조개선자금 확보 전문 컨설팅</li>
+                    <li>정책자금 정보 부족·복잡한 신청 절차 지원</li>
+                    <li>낮은 선정 확률 개선 · 시간 낭비 최소화</li>
+                </ul>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(2)">
                     🔍 무료 진단
                 </button>
             </div>
             
             <div class="service-card">
-                <h3>🏭 경매공장 구매 자문</h3>
-                <p>스마트팩토리 구축을 위한 최적 부지 확보</p>
+                <h3>🏭 경매활용 공장구매 컨설팅</h3>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">⚡ 공장입지분석·투자사업타당성분석 전문 컨설팅</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>🔥 공장입지분석 전문 컨설팅</li>
+                    <li>🔥 투자사업타당성분석 완전 대행</li>
+                    <li>경매 전문 지식 부족 보완</li>
+                    <li>법적 절차·권리 분석 부담 경감</li>
+                </ul>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(3)">
                     🔍 무료 진단
                 </button>
             </div>
             
             <div class="service-card">
-                <h3>💻 매출증대 웹사이트</h3>
-                <p>AI 기반 맞춤형 웹사이트로 매출 20% 증대</p>
+                <h3>💻 매출증대 웹사이트 구축</h3>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">🔥 AI가 만드는 스마트한 매출 증대 웹사이트</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>고객 문의 놓침·결제 이탈률 해결</li>
+                    <li>회원 관리 부재로 재구매율 저조 해결</li>
+                    <li>CRM 기반 데이터 활용 극대화</li>
+                    <li>간편결제 → 구매 포기 감소</li>
+                </ul>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(4)">
                     🔍 무료 진단
                 </button>
             </div>
             
             <div class="service-card">
-                <h3>💸 세금환급 (경정청구)</h3>
-                <p>세무 전문가와 함께하는 합법적 세금 환급</p>
+                <h3>💸 경정청구 전문 서비스</h3>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">💰 놓친 세금 혜택을 되찾아 드립니다</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>복잡한 세법으로 놓친 공제 혜택 발굴</li>
+                    <li>과다 납부 세금 환급 누락 방지</li>
+                    <li>세무 신고 오류 → 손실 감소</li>
+                    <li>시효 만료 위험 방지</li>
+                </ul>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(5)">
                     🔍 무료 진단
                 </button>
             </div>
             
             <div class="service-card">
-                <h3>🏆 ISO·ESG 인증</h3>
-                <p>지속가능 경영을 위한 국제 인증 획득</p>
+                <h3>🏆 ISO·ESG 인증 전문</h3>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">🌟 국제 표준 인증으로 글로벌 경쟁력을 확보하세요</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>복잡한 인증 절차·요구사항 대응</li>
+                    <li>높은 컨설팅 비용·장기 투자 부담 완화</li>
+                    <li>대기업 거래 조건 충족 지원</li>
+                    <li>사후 관리·갱신 유지 보장</li>
+                </ul>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(6)">
+                    🔍 무료 진단
+                </button>
+            </div>
+            
+            <div class="service-card">
+                <h3>🤝 일터혁신 상생컨설팅</h3>
+                <p style="font-weight: bold; color: #2d5a27; margin-bottom: 10px;">🎉 정부지원 100% - 기업부담 0원으로 조직 혁신하세요!</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>직무분석·직무평가 시스템 구축</li>
+                    <li>직무급·성과급 도입으로 공정성 확보</li>
+                    <li>평생학습체계 구축으로 역량 향상</li>
+                    <li>💰 컨설팅 비용 전액 무료 (기업부담 0원)</li>
+                </ul>
+                <button class="btn-primary" onclick="showDiagnosticSurvey(7)">
                     🔍 무료 진단
                 </button>
             </div>
@@ -209,9 +280,14 @@
     <section class="contact">
         <h2>📞 전문가 상담</h2>
         <div class="contact-info">
-            <p>📧 이메일: aicamp@injconsulting.co.kr</p>
-            <p>📱 전화: 031-8014-4175</p>
-            <p>🏢 주소: 경기도 성남시 분당구 정자일로 95, 네이버1784 1306호</p>
+            <h3 style="margin-bottom: 20px;">이후경 경영지도사</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 10px;">28년 경력 · 100+ 프로젝트 수행</p>
+            <div style="margin: 30px 0;">
+                <p>📧 이메일: hongik423@gmail.com</p>
+                <p>📱 전화: 010-9251-9743</p>
+                <p>⏰ 상담시간: 평일 9:00~18:00 (주말/공휴일 상담 가능)</p>
+                <p>🚀 응답시간: 전화 당일연결 | 이메일 당일 답변 보장</p>
+            </div>
         </div>
     </section>
 
@@ -219,15 +295,35 @@
     <div id="diagnosticModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeDiagnosticModal()">&times;</span>
-            <h2 style="color: #2d5a27; margin-bottom: 20px;">🔍 무료 진단 선택</h2>
-            <p>진단받고 싶은 분야를 선택해주세요:</p>
+            <h2 style="color: #2d5a27; margin-bottom: 20px;">🔍 기업 진단 설문</h2>
+            <p style="margin-bottom: 20px;">귀사에 필요한 서비스 영역을 선택하여 무료 진단을 받아보세요!</p>
+            <p style="font-weight: bold; color: #2d5a27; margin-bottom: 20px;">💰 진단 완전 무료</p>
             <div style="margin-top: 20px;">
                 <button class="btn-primary" onclick="showDiagnosticSurvey(1)" style="width: 100%; margin: 5px 0;">
-                    🚀 생산성혁신 진단
+                    🚀 생산성혁신 진단 - AI 활용 현황 체크
                 </button>
                 <button class="btn-primary" onclick="showDiagnosticSurvey(2)" style="width: 100%; margin: 5px 0;">
-                    💰 정책자금 진단
+                    💰 정책자금 진단 - 자금 확보 가능성 체크
                 </button>
+                <button class="btn-primary" onclick="showDiagnosticSurvey(3)" style="width: 100%; margin: 5px 0;">
+                    🏭 공장구매 진단 - 투자 타당성 체크
+                </button>
+                <button class="btn-primary" onclick="showDiagnosticSurvey(4)" style="width: 100%; margin: 5px 0;">
+                    💻 웹사이트 진단 - 매출 증대 가능성 체크
+                </button>
+                <button class="btn-primary" onclick="showDiagnosticSurvey(5)" style="width: 100%; margin: 5px 0;">
+                    💸 세금환급 진단 - 환급 가능성 체크
+                </button>
+                <button class="btn-primary" onclick="showDiagnosticSurvey(6)" style="width: 100%; margin: 5px 0;">
+                    🏆 인증 준비도 진단 - ISO·ESG 준비 체크
+                </button>
+                <button class="btn-primary" onclick="showDiagnosticSurvey(7)" style="width: 100%; margin: 5px 0;">
+                    🤝 조직혁신 진단 - 조직 문화 체크
+                </button>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8f0; border-radius: 10px; font-size: 0.9rem;">
+                <p style="font-weight: bold;">✨ 진단 완료 후 혜택:</p>
+                <p>• 맞춤형 개선 방안 제시 • 전문가 무료 상담 • 우선 서비스 할인 혜택</p>
             </div>
         </div>
     </div>
@@ -275,6 +371,86 @@
                     "금융기관과의 관계 및 신용도는 어떻습니까?",
                     "사업 성장 계획 및 투자 계획이 구체적으로 수립되어 있습니까?",
                     "정책자금 관련 전문가 네트워크를 보유하고 있습니까?"
+                ]
+            },
+            3: {
+                title: "🏭 공장구매 투자 타당성 진단",
+                description: "귀사의 공장 구매 및 투자 타당성을 진단합니다",
+                questions: [
+                    "공장 구매에 대한 구체적인 계획이 수립되어 있습니까?",
+                    "경매 시장 및 관련 법규에 대한 이해도는 어떻습니까?",
+                    "공장 입지 분석을 위한 전문 지식을 보유하고 있습니까?",
+                    "투자 자금 조달 계획이 구체적으로 마련되어 있습니까?",
+                    "공장 운영을 위한 인력 및 기술력을 확보하고 있습니까?",
+                    "시장 분석 및 수요 예측이 체계적으로 이루어졌습니까?",
+                    "리스크 관리 및 대응 방안이 수립되어 있습니까?",
+                    "관련 인허가 및 법적 절차에 대한 준비가 되어있습니까?",
+                    "투자 회수 계획 및 수익성 분석이 완료되었습니까?",
+                    "전문가의 자문이나 컨설팅이 필요하다고 생각하십니까?"
+                ]
+            },
+            4: {
+                title: "💻 매출증대 웹사이트 진단",
+                description: "귀사의 웹사이트 매출 증대 가능성을 진단합니다",
+                questions: [
+                    "현재 온라인을 통한 매출 비중은 어느 정도입니까?",
+                    "기존 웹사이트의 고객 문의 전환율에 만족하십니까?",
+                    "온라인 결제 시스템이 원활하게 작동하고 있습니까?",
+                    "고객 관리(CRM) 시스템을 체계적으로 운영하고 있습니까?",
+                    "웹사이트 방문자 데이터를 분석하고 활용하고 있습니까?",
+                    "모바일 최적화 및 사용자 경험(UX)은 만족스럽습니까?",
+                    "검색엔진 최적화(SEO) 및 온라인 마케팅을 실시하고 있습니까?",
+                    "고객 재구매율 향상을 위한 전략이 있습니까?",
+                    "경쟁사 대비 온라인 경쟁력은 어느 수준입니까?",
+                    "웹사이트 개선을 통한 매출 증대가 필요하다고 생각하십니까?"
+                ]
+            },
+            5: {
+                title: "💸 세금환급 가능성 진단",
+                description: "귀사의 경정청구를 통한 세금환급 가능성을 진단합니다",
+                questions: [
+                    "과거 세무신고 시 누락된 공제 항목이 있을 가능성이 있습니까?",
+                    "복잡한 세법으로 인해 놓친 혜택이 있다고 생각하십니까?",
+                    "연구개발비, 교육비 등 특별공제를 충분히 활용했습니까?",
+                    "과다 납부한 세금이 있을 가능성을 느끼십니까?",
+                    "세무 전문가의 검토를 받은 적이 있습니까?",
+                    "경정청구 제도에 대해 알고 계십니까?",
+                    "세무 관련 서류 및 증빙자료가 체계적으로 관리되고 있습니까?",
+                    "최근 3년간의 세무신고 내용을 재검토할 의향이 있습니까?",
+                    "합법적인 절세 방안에 대한 관심이 있습니까?",
+                    "세금 환급을 통한 현금 흐름 개선이 필요하십니까?"
+                ]
+            },
+            6: {
+                title: "🏆 ISO·ESG 인증 준비도 진단",
+                description: "귀사의 ISO 및 ESG 인증 준비도를 진단합니다",
+                questions: [
+                    "ISO 인증의 필요성을 느끼고 계십니까?",
+                    "ESG 경영에 대한 관심과 이해도는 어떻습니까?",
+                    "품질관리 시스템이 체계적으로 구축되어 있습니까?",
+                    "환경경영 및 지속가능성을 위한 활동을 하고 있습니까?",
+                    "사회적 책임 및 거버넌스 체계가 갖춰져 있습니까?",
+                    "대기업과의 거래를 위해 인증이 필요한 상황입니까?",
+                    "국제 표준에 맞는 경영 시스템을 도입하고 싶습니까?",
+                    "인증 취득을 위한 인력과 자원을 투입할 준비가 되어있습니까?",
+                    "인증 유지를 위한 지속적인 관리 체계를 구축할 수 있습니까?",
+                    "전문 컨설팅을 통한 인증 취득을 고려하고 계십니까?"
+                ]
+            },
+            7: {
+                title: "🤝 조직혁신 진단",
+                description: "귀사의 일터혁신 및 조직문화 개선 필요도를 진단합니다",
+                questions: [
+                    "현재 조직의 업무 효율성에 만족하고 계십니까?",
+                    "직무분석 및 직무평가가 체계적으로 이루어지고 있습니까?",
+                    "공정한 성과평가 및 보상체계가 구축되어 있습니까?",
+                    "직원들의 역량 개발을 위한 교육 시스템이 있습니까?",
+                    "조직 내 소통 및 협업 문화는 원활합니까?",
+                    "직원 만족도 및 몰입도 향상이 필요하다고 생각하십니까?",
+                    "조직 문화 개선을 위한 투자 의지가 있습니까?",
+                    "정부 지원 프로그램 활용에 관심이 있습니까?",
+                    "외부 전문가의 조직진단이 필요하다고 생각하십니까?",
+                    "장기적인 조직 발전 계획이 수립되어 있습니까?"
                 ]
             }
         };
