@@ -126,6 +126,10 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal.show {
+            display: flex;
             align-items: center;
             justify-content: center;
         }
@@ -138,6 +142,19 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         
         .close {
@@ -146,6 +163,7 @@
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
+            line-height: 1;
         }
         
         .close:hover {
@@ -459,13 +477,15 @@
         function showDiagnosticModal() {
             console.log('진단 모달 표시');
             const modal = document.getElementById('diagnosticModal');
-            modal.style.display = 'flex';
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
         }
 
         // 진단 모달 닫기
         function closeDiagnosticModal() {
             const modal = document.getElementById('diagnosticModal');
-            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // 스크롤 복원
         }
 
         // 설문 표시
@@ -545,13 +565,15 @@
 
             // 설문 모달 표시
             const surveyModal = document.getElementById('surveyModal');
-            surveyModal.style.display = 'flex';
+            surveyModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
         }
 
         // 설문 모달 닫기
         function closeSurveyModal() {
             const modal = document.getElementById('surveyModal');
-            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // 스크롤 복원
         }
 
         // 설문 제출
@@ -658,6 +680,21 @@
                 closeSurveyModal();
             }
         }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const diagnosticModal = document.getElementById('diagnosticModal');
+                const surveyModal = document.getElementById('surveyModal');
+                
+                if (diagnosticModal.classList.contains('show')) {
+                    closeDiagnosticModal();
+                }
+                if (surveyModal.classList.contains('show')) {
+                    closeSurveyModal();
+                }
+            }
+        });
     </script>
 </body>
 </html> 
