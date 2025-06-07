@@ -56,7 +56,7 @@ function doPost(e) {
     
     console.log('📋 파싱된 데이터:', requestData);
     
-    // survey 타입인지 확인
+    // survey 타입인지 확인 (기존 설문과 진단 설문 모두 처리)
     if (requestData.type !== 'survey') {
       console.log('❌ 잘못된 요청 타입:', requestData.type);
       return createErrorResponse('잘못된 요청 타입입니다: ' + requestData.type);
@@ -64,6 +64,10 @@ function doPost(e) {
     
     const data = requestData.data || {};
     console.log('📊 설문 데이터:', data);
+    
+    // 진단 설문인지 기존 설문인지 확인
+    const isDiagnosticSurvey = data.serviceType && data.serviceType.includes('진단');
+    console.log('🔍 진단 설문 여부:', isDiagnosticSurvey);
     
     // 스프레드시트 처리
     const result = saveToSheet(data);

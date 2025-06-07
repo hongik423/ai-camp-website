@@ -242,11 +242,12 @@ function processConsultationDataSafely(data) {
       try {
         sheet = spreadsheet.insertSheet(SHEET_NAME);
         
-        // 헤더 행 생성
+        // 헤더 행 생성 (개선된 버전)
         const headers = [
           '접수일시', '상담유형', '연락방법', '연락처정보',
           '기업명', '담당자명', '전화번호', '이메일',
-          '상담분야', '시급성', '추가요청사항', '첨부파일',
+          '상담분야', '시급성', '추가요청사항', 
+          '첨부파일수', '첨부파일목록',
           '개인정보동의', '마케팅동의', '참조URL', '브라우저정보'
         ];
         
@@ -273,16 +274,22 @@ function processConsultationDataSafely(data) {
       console.log('✅ 기존 시트 찾음:', SHEET_NAME);
     }
     
-    // 첨부파일 정보 처리
+    // 첨부파일 정보 처리 (개선된 버전)
     let attachmentInfo = '';
+    let attachmentCount = 0;
+    
     if (data.attachments && Array.isArray(data.attachments) && data.attachments.length > 0) {
+      attachmentCount = data.attachments.length;
       attachmentInfo = data.attachments.map(file => 
         `${file.name} (${formatFileSize(file.size)})`
       ).join(', ');
       console.log('📎 첨부파일 정보:', attachmentInfo);
+      console.log('📎 첨부파일 개수:', attachmentCount);
+    } else {
+      console.log('📎 첨부파일 없음');
     }
     
-    // 데이터 행 준비
+    // 데이터 행 준비 (개선된 버전)
     const currentTime = new Date().toLocaleString('ko-KR');
     const rowData = [
       data.timestamp || currentTime,
@@ -296,9 +303,10 @@ function processConsultationDataSafely(data) {
       data.consultationArea || '',
       data.urgency || '',
       data.additionalRequest || '',
-      attachmentInfo,
-      data.privacyConsent || 'N',
-      data.marketingConsent || 'N',
+      attachmentCount, // 첨부파일 개수
+      attachmentInfo,  // 첨부파일 목록
+      data.consultationPrivacyConsent === 'on' ? 'Y' : (data.privacyConsent || 'N'),
+      data.consultationMarketingConsent === 'on' ? 'Y' : (data.marketingConsent || 'N'),
       data.referenceUrl || '',
       data.userAgent || ''
     ];
