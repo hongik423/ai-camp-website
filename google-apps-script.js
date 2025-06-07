@@ -41,7 +41,7 @@ function handleSurveyRequest(data) {
       '총점', '진단등급', '백분율', '질문1', '답변1', '질문2', '답변2', 
       '질문3', '답변3', '질문4', '답변4', '질문5', '답변5', 
       '질문6', '답변6', '질문7', '답변7', '질문8', '답변8', 
-      '질문9', '답변9', '질문10', '답변10', '추가의견'
+      '질문9', '답변9', '질문10', '답변10', '추가의견', '개인정보동의', '마케팅동의'
     ];
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     
@@ -89,6 +89,10 @@ function handleSurveyRequest(data) {
   // 추가 의견
   rowData.push(data.additionalComments);
   
+  // 개인정보 동의 정보 추가
+  rowData.push(data.privacyConsent || 'Y');
+  rowData.push(data.marketingConsent || 'N');
+  
   // 시트에 데이터 추가
   sheet.appendRow(rowData);
   
@@ -130,7 +134,7 @@ function handleConsultationRequest(data) {
     sheet = spreadsheet.insertSheet('상담신청');
     const headers = [
       '접수일시', '상담유형', '연락방법', '연락정보', '기업명', '담당자명', 
-      '전화번호', '이메일', '상담분야', '시급성', '추가요청사항', '참조URL', 'UserAgent'
+      '전화번호', '이메일', '상담분야', '시급성', '추가요청사항', '개인정보동의', '마케팅동의', '참조URL', 'UserAgent'
     ];
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     
@@ -155,6 +159,8 @@ function handleConsultationRequest(data) {
     data.consultationArea,
     data.urgency,
     data.additionalRequest,
+    data.privacyConsent || 'Y',
+    data.marketingConsent || 'N',
     data.referenceUrl,
     data.userAgent
   ];
