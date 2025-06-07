@@ -4527,31 +4527,83 @@
             }, 300);
         }
 
-        // 구글시트로 데이터 전송 함수
+        // 구글시트로 데이터 전송 함수 (설문 데이터용)
         async function sendToGoogleSheets(surveyData) {
-            // 🔧 실제 배포된 Google Apps Script 웹앱 URL로 교체 필요  
-            // 📋 배포 가이드: 이미지_파일_안내.txt 파일의 "Google Apps Script 배포 가이드" 참조
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec'; // ✅ 설문 데이터 수집용 활성화됨
+            // 🔧 설문 데이터 전송용 구글시트 URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzMh8Q53uFQ5briLNPnIubO7kUvGUiScpSpO-k17zNXwUugq9LudbwU7XYPAmqfhDt_Yw/exec';
+            
+            console.log('📊 설문 데이터 전송 시작:', surveyData);
+            
+            // 데이터 검증
+            if (!surveyData) {
+                console.error('❌ 설문 데이터가 없습니다');
+                return false;
+            }
+            
+            const requestData = {
+                type: 'survey',
+                data: surveyData
+            };
+            
+            console.log('📤 전송할 데이터:', requestData);
             
             try {
+                // AbortController로 타임아웃 설정 (30초)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000);
+                
                 const response = await fetch(scriptURL, {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
-                    body: JSON.stringify(surveyData)
+                    body: JSON.stringify(requestData),
+                    signal: controller.signal
                 });
                 
+                clearTimeout(timeoutId);
+                
+                console.log('📡 설문 데이터 응답 상태:', response.status);
+                console.log('📡 응답 헤더:', Object.fromEntries(response.headers.entries()));
+                
+                // 응답 처리
+                let responseData;
+                const contentType = response.headers.get('content-type');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    try {
+                        responseData = await response.json();
+                        console.log('📥 JSON 응답 데이터:', responseData);
+                    } catch (jsonError) {
+                        console.warn('⚠️ JSON 파싱 실패, 텍스트로 처리:', jsonError);
+                        responseData = { message: await response.text() };
+                    }
+                } else {
+                    const textResponse = await response.text();
+                    console.log('📥 텍스트 응답:', textResponse);
+                    responseData = { message: textResponse };
+                }
+                
                 if (response.ok) {
-                    console.log('✅ 데이터가 구글시트에 성공적으로 저장되었습니다.');
+                    console.log('✅ 설문 데이터가 구글시트에 성공적으로 저장되었습니다.');
                     return true;
                 } else {
-                    console.error('❌ 구글시트 저장 실패:', response.status);
+                    console.error('❌ 설문 데이터 저장 실패:', response.status, responseData);
                     return false;
                 }
             } catch (error) {
-                console.error('❌ 구글시트 연동 오류:', error);
+                if (error.name === 'AbortError') {
+                    console.error('❌ 설문 데이터 요청 타임아웃 (30초 초과)');
+                } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('❌ 네트워크 연결 오류:', error.message);
+                } else {
+                    console.error('❌ 설문 데이터 구글시트 연동 오류:', error);
+                    console.error('오류 타입:', error.name);
+                    console.error('오류 메시지:', error.message);
+                    console.error('오류 스택:', error.stack);
+                }
                 return false;
             }
         }
@@ -4560,7 +4612,15 @@
         function submitDiagnosticSurvey(event, serviceId) {
             event.preventDefault();
             
+            console.log('🔍 진단 설문 제출 시작 - 서비스 ID:', serviceId);
+            
             const form = document.getElementById('diagnosticForm');
+            if (!form) {
+                console.error('❌ 진단 폼을 찾을 수 없습니다.');
+                alert('진단 폼을 찾을 수 없습니다. 페이지를 새로고침 후 다시 시도해 주세요.');
+                return;
+            }
+            
             const formData = new FormData(form);
             const answers = [];
             let totalScore = 0;
@@ -4573,6 +4633,8 @@
                 phoneNumber: formData.get('phoneNumber'),
                 email: formData.get('email')
             };
+            
+            console.log('🏢 기업정보:', companyInfo);
             
             // 필수 기업정보 검증
             if (!companyInfo.companyName || !companyInfo.contactName || !companyInfo.region || !companyInfo.phoneNumber || !companyInfo.email) {
@@ -4587,6 +4649,13 @@
                 return;
             }
             
+            // 설문 데이터 검증
+            if (!diagnosticSurveys[serviceId]) {
+                console.error('❌ 해당 서비스의 설문 데이터를 찾을 수 없습니다:', serviceId);
+                alert('설문 데이터를 찾을 수 없습니다. 다시 시도해 주세요.');
+                return;
+            }
+            
             // 답변 수집 및 점수 계산
             for (let i = 0; i < diagnosticSurveys[serviceId].questions.length; i++) {
                 const answer = formData.get(`q${i}`);
@@ -4597,6 +4666,8 @@
                 answers.push(parseInt(answer));
                 totalScore += parseInt(answer);
             }
+            
+            console.log('📊 설문 답변:', answers, '총점:', totalScore);
             
             // 추가 의견 수집
             const additionalComments = formData.get('additionalComments') || '';
@@ -4621,6 +4692,8 @@
                 }))
             };
             
+            console.log('📤 구글시트 전송 데이터:', surveyData);
+            
             // 구글시트에 데이터 전송 (비동기)
             sendToGoogleSheets(surveyData).then(success => {
                 if (success) {
@@ -4628,6 +4701,9 @@
                 } else {
                     console.log('⚠️ 데이터 저장에 문제가 있었지만 진단은 계속 진행됩니다.');
                 }
+            }).catch(error => {
+                console.error('❌ 구글시트 전송 오류:', error);
+                console.log('⚠️ 데이터 저장 오류가 있었지만 진단은 계속 진행됩니다.');
             });
             
             // 결과 표시
@@ -4733,8 +4809,8 @@
                 ✅ 하지만 <strong>전문가 집중 지원</strong>으로 <strong>1년 내 중위권 진입</strong> 가능<br><br>
                 💰 <strong>예상 효과</strong>: 전문가 컨설팅 시 <strong>6개월 내 생존 기반 확보</strong> 및 <strong>1년 내 안정적 성장 궤도</strong> 진입`;
                 actionPlan = [
-                    "🚨 즉시: 생존 위험 요소 제거 및 긴급 안정화 조치", 
-                    "⚡ 1개월 내: 핵심 문제 해결 및 기초 체력 회복", 
+                    "🚨 즉시: 생존 위협 요소 완전 제거 및 응급 처치", 
+                    "💊 2주 내: 핵심 문제 근본 치료 및 기초 체력 회복", 
                     "🎯 6개월 내: 업계 평균 수준 달성 및 지속성장 기반 구축"
                 ];
                 capacityBuilding = [
@@ -5056,46 +5132,89 @@
 
         // 상담신청 데이터를 Google Sheets로 전송
         async function sendConsultationToGoogleSheets(consultationData) {
-            // 🔧 실제 배포된 Google Apps Script 웹앱 URL로 교체 필요
-            // 📋 배포 가이드: 이미지_파일_안내.txt 파일의 "Google Apps Script 배포 가이드" 참조
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxGJqM9KJfGQYzgfgJzUZnCGLzKRzZQ7YNqNb8kOyQJXM2Ht3-mfNbUCqXhq8b4F9qF/exec';
+            // 🔧 상담신청 데이터 전송용 구글시트 URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzt4yZiYIMfkcg6mIFUcO_InrFbACXYCaC11u_eSox0s3p1zwyT1x3mE9vQCCBA8ywt/exec';
             
             console.log('📤 상담신청 데이터 전송 시작:', consultationData);
             
+            // 데이터 검증
+            if (!consultationData) {
+                console.error('❌ 상담신청 데이터가 없습니다');
+                return false;
+            }
+            
+            const requestData = {
+                type: 'consultation',
+                data: consultationData
+            };
+            
+            console.log('📤 전송할 데이터:', requestData);
+            
             try {
+                // AbortController로 타임아웃 설정 (30초)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000);
+                
                 const response = await fetch(scriptURL, {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
-                    body: JSON.stringify({
-                        type: 'consultation',
-                        data: consultationData
-                    })
+                    body: JSON.stringify(requestData),
+                    signal: controller.signal
                 });
                 
-                console.log('📡 Google Apps Script 응답 상태:', response.status);
+                clearTimeout(timeoutId);
+                
+                console.log('📡 상담신청 응답 상태:', response.status);
+                console.log('📡 응답 헤더:', Object.fromEntries(response.headers.entries()));
+                
+                // 응답 처리
+                let responseData;
+                const contentType = response.headers.get('content-type');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    try {
+                        responseData = await response.json();
+                        console.log('📥 JSON 응답 데이터:', responseData);
+                    } catch (jsonError) {
+                        console.warn('⚠️ JSON 파싱 실패, 텍스트로 처리:', jsonError);
+                        responseData = { message: await response.text() };
+                    }
+                } else {
+                    const textResponse = await response.text();
+                    console.log('📥 텍스트 응답:', textResponse);
+                    responseData = { message: textResponse };
+                }
                 
                 if (response.ok) {
-                    const responseText = await response.text();
-                    console.log('📥 Google Apps Script 응답:', responseText);
                     console.log('✅ 상담신청 데이터가 구글시트에 성공적으로 저장되었습니다.');
                     return true;
                 } else {
-                    const errorText = await response.text();
-                    console.error('❌ 상담신청 데이터 저장 실패:', response.status, errorText);
+                    console.error('❌ 상담신청 데이터 저장 실패:', response.status, responseData);
                     return false;
                 }
             } catch (error) {
-                console.error('❌ 상담신청 구글시트 연동 오류:', error);
-                console.error('오류 세부사항:', error.message);
+                if (error.name === 'AbortError') {
+                    console.error('❌ 상담신청 요청 타임아웃 (30초 초과)');
+                } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('❌ 네트워크 연결 오류:', error.message);
+                } else {
+                    console.error('❌ 상담신청 구글시트 연동 오류:', error);
+                    console.error('오류 타입:', error.name);
+                    console.error('오류 메시지:', error.message);
+                    console.error('오류 스택:', error.stack);
+                }
                 return false;
             }
         }
 
-        // 전화번호 자동 형식 완성 함수 (향상된 버전)
+        // 전화번호 자동 형식 완성 함수 (수정된 안정화 버전)
         function formatPhoneNumber(input) {
+            if (!input || !input.value) return;
+            
             // 숫자만 추출 (기존 하이픈 제거)
             let value = input.value.replace(/[^0-9]/g, '');
             
@@ -5142,55 +5261,58 @@
                 }
             }
             
-            // 커서 위치 저장
-            const cursorPosition = input.selectionStart;
-            const oldLength = input.value.length;
-            
-            // 포맷된 값 적용
+            // 값 적용 (커서 위치 보정 없이 간단하게)
             input.value = formattedValue;
-            
-            // 커서 위치 조정 (하이픈 추가로 인한 위치 변경 보정)
-            const newLength = input.value.length;
-            const lengthDiff = newLength - oldLength;
-            
-            if (lengthDiff > 0) {
-                // 하이픈이 추가된 경우 커서 위치 조정
-                input.setSelectionRange(cursorPosition + lengthDiff, cursorPosition + lengthDiff);
-            }
         }
 
-        // 전화번호 입력 필드에 자동 형식 완성 이벤트 리스너 추가
+        // 전화번호 입력 필드에 자동 형식 완성 이벤트 리스너 추가 (수정된 안정화 버전)
         function initPhoneNumberFormatting() {
+            console.log('📞 전화번호 포맷팅 초기화 시작');
+            
             const phoneInputs = document.querySelectorAll('input[name="phoneNumber"]');
-            phoneInputs.forEach(input => {
+            console.log('📞 찾은 전화번호 입력 필드 개수:', phoneInputs.length);
+            
+            phoneInputs.forEach((input, index) => {
+                console.log(`📞 전화번호 필드 ${index + 1} 설정 중...`);
+                
                 // 플레이스홀더 업데이트
                 input.placeholder = "숫자만 입력 (예: 01012345678)";
                 
-                // 입력 이벤트 (실시간 포맷팅)
-                input.addEventListener('input', function(e) {
-                    formatPhoneNumber(this);
-                });
+                // 기존 이벤트 리스너 제거 (중복 방지)
+                input.removeEventListener('input', handlePhoneInput);
+                input.removeEventListener('paste', handlePhonePaste);
+                input.removeEventListener('keypress', handlePhoneKeypress);
                 
-                // 붙여넣기 이벤트 처리
-                input.addEventListener('paste', function(e) {
-                    setTimeout(() => {
-                        formatPhoneNumber(this);
-                    }, 10);
-                });
-                
-                // 키 입력 제한 (숫자와 하이픈만 허용)
-                input.addEventListener('keypress', function(e) {
-                    const char = String.fromCharCode(e.which);
-                    if (!/[0-9\-]/.test(char) && e.which !== 8 && e.which !== 9) {
-                        e.preventDefault();
-                    }
-                });
+                // 새 이벤트 리스너 추가
+                input.addEventListener('input', handlePhoneInput);
+                input.addEventListener('paste', handlePhonePaste);
+                input.addEventListener('keypress', handlePhoneKeypress);
                 
                 // 포커스 시 도움말 툴팁 표시
                 input.addEventListener('focus', function() {
                     this.title = "숫자만 입력하시면 자동으로 형식이 완성됩니다.\n예: 01012345678 → 010-1234-5678";
                 });
             });
+            
+            console.log('✅ 전화번호 포맷팅 초기화 완료');
+        }
+
+        // 전화번호 입력 이벤트 핸들러들
+        function handlePhoneInput(e) {
+            formatPhoneNumber(this);
+        }
+
+        function handlePhonePaste(e) {
+            setTimeout(() => {
+                formatPhoneNumber(this);
+            }, 10);
+        }
+
+        function handlePhoneKeypress(e) {
+            const char = String.fromCharCode(e.which);
+            if (!/[0-9\-]/.test(char) && e.which !== 8 && e.which !== 9) {
+                e.preventDefault();
+            }
         }
 
         // 개인정보 처리방침 모달 표시
@@ -5213,32 +5335,67 @@
             }, 300);
         }
 
-        // 페이지 로드 시 전화번호 형식 완성 기능 초기화
+        // 페이지 로드 시 초기화 (수정된 안정화 버전)
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 페이지 로드 완료 - 초기화 시작');
+            
+            // 전화번호 포맷팅 초기화
             initPhoneNumberFormatting();
+            
+            // 전역 변수 초기화
+            if (typeof window.attachedFiles === 'undefined') {
+                window.attachedFiles = [];
+            }
+            
+            console.log('✅ 페이지 초기화 완료');
         });
 
-        // 상담신청 폼 제출
+        // 상담신청 폼 제출 (수정된 안정화 버전)
         async function submitConsultationForm(event) {
             event.preventDefault();
             
+            console.log('📞 상담신청 폼 제출 시작');
+            
             const form = document.getElementById('consultationForm');
+            if (!form) {
+                console.error('❌ 상담신청 폼을 찾을 수 없습니다.');
+                alert('상담신청 폼을 찾을 수 없습니다. 페이지를 새로고침 후 다시 시도해 주세요.');
+                return;
+            }
+            
             const formData = new FormData(form);
             
             const consultationFormData = {
-                companyName: formData.get('companyName'),
-                contactName: formData.get('contactName'),
-                phoneNumber: formData.get('phoneNumber'),
-                email: formData.get('email'),
-                consultationArea: formData.get('consultationArea'),
-                urgency: formData.get('urgency'),
-                additionalRequest: formData.get('additionalRequest')
+                companyName: formData.get('companyName')?.trim(),
+                contactName: formData.get('contactName')?.trim(),
+                phoneNumber: formData.get('phoneNumber')?.trim(),
+                email: formData.get('email')?.trim(),
+                consultationArea: formData.get('consultationArea')?.trim(),
+                urgency: formData.get('urgency')?.trim(),
+                additionalRequest: formData.get('additionalRequest')?.trim()
             };
 
-            // 필수 정보 검증
-            if (!consultationFormData.companyName || !consultationFormData.contactName || 
-                !consultationFormData.phoneNumber || !consultationFormData.email) {
-                alert('필수 정보를 모두 입력해 주세요.');
+            console.log('📋 상담신청 데이터:', consultationFormData);
+
+            // 필수 정보 검증 강화
+            if (!consultationFormData.companyName) {
+                alert('기업명을 입력해 주세요.');
+                document.querySelector('input[name="companyName"]')?.focus();
+                return;
+            }
+            if (!consultationFormData.contactName) {
+                alert('담당자명을 입력해 주세요.');
+                document.querySelector('input[name="contactName"]')?.focus();
+                return;
+            }
+            if (!consultationFormData.phoneNumber) {
+                alert('전화번호를 입력해 주세요.');
+                document.querySelector('input[name="phoneNumber"]')?.focus();
+                return;
+            }
+            if (!consultationFormData.email) {
+                alert('이메일을 입력해 주세요.');
+                document.querySelector('input[name="email"]')?.focus();
                 return;
             }
 
@@ -5246,6 +5403,7 @@
             const consultationPrivacyConsent = formData.get('consultationPrivacyConsent');
             if (!consultationPrivacyConsent) {
                 alert('개인정보 수집·이용에 동의해 주세요.');
+                document.querySelector('input[name="consultationPrivacyConsent"]')?.focus();
                 return;
             }
 
@@ -5253,6 +5411,7 @@
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(consultationFormData.email)) {
                 alert('올바른 이메일 주소를 입력해 주세요.');
+                document.querySelector('input[name="email"]')?.focus();
                 return;
             }
 
@@ -5260,6 +5419,7 @@
             const phoneRegex = /^(010|011|016|017|018|019|02|0[3-9][0-9])-[0-9]{3,4}-[0-9]{4}$/;
             if (!phoneRegex.test(consultationFormData.phoneNumber)) {
                 alert('올바른 전화번호 형식을 입력해 주세요.\n예: 010-1234-5678, 02-1234-5678');
+                document.querySelector('input[name="phoneNumber"]')?.focus();
                 return;
             }
 
@@ -5269,10 +5429,10 @@
             consultationFormData.marketingConsent = consultationMarketingConsent;
 
             // 📎 첨부파일이 있는 경우 처리
-            if (attachedFiles.length > 0) {
+            if (window.attachedFiles && window.attachedFiles.length > 0) {
                 try {
                     // 파일들을 Base64로 변환하여 추가
-                    const filePromises = attachedFiles.map(async (file) => {
+                    const filePromises = window.attachedFiles.map(async (file) => {
                         const base64Data = await fileToBase64(file);
                         return {
                             name: file.name,
@@ -5288,33 +5448,52 @@
                     console.log('📎 첨부파일 정보:', attachmentData.map(f => `${f.name} (${formatFileSize(f.size)})`));
                 } catch (error) {
                     console.error('파일 처리 오류:', error);
-                    alert('❌ 첨부파일 처리 중 오류가 발생했습니다.\n파일 없이 상담신청을 계속하시겠습니까?');
+                    if (!confirm('❌ 첨부파일 처리 중 오류가 발생했습니다.\n파일 없이 상담신청을 계속하시겠습니까?')) {
+                        return;
+                    }
                     consultationFormData.attachments = [];
                 }
             }
 
-            // 상담신청 데이터 기록
-            recordConsultationRequest('상담신청폼', '온라인폼', consultationFormData).then((success) => {
+            // 버튼 비활성화 (중복 제출 방지)
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = '📤 상담신청 처리 중...';
+            }
+
+            try {
+                // 상담신청 데이터 기록
+                const success = await recordConsultationRequest('상담신청폼', '온라인폼', consultationFormData);
+                
                 if (success) {
-                    const attachmentMessage = attachedFiles.length > 0 ? 
-                        `\n📎 첨부파일 ${attachedFiles.length}개가 함께 전송되었습니다.` : '';
+                    const attachmentMessage = window.attachedFiles && window.attachedFiles.length > 0 ? 
+                        `\n📎 첨부파일 ${window.attachedFiles.length}개가 함께 전송되었습니다.` : '';
                     alert(`✅ 상담신청이 완료되었습니다!${attachmentMessage}\n신청일 당일 중 연락드리겠습니다.`);
                     closeConsultationForm();
                     form.reset();
                     // 첨부파일 목록 초기화
-                    attachedFiles = [];
-                    updateFileList();
+                    if (window.attachedFiles) {
+                        window.attachedFiles = [];
+                        updateFileList();
+                    }
                 } else {
                     alert('❌ 상담신청 전송 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주시거나 전화로 연락 부탁드립니다.\n📞 010-9251-9743');
                 }
-            }).catch((error) => {
+            } catch (error) {
                 console.error('상담신청 오류:', error);
                 alert('❌ 상담신청 전송 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주시거나 전화로 연락 부탁드립니다.\n📞 010-9251-9743');
-            });
+            } finally {
+                // 버튼 재활성화
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📞 상담신청 완료';
+                }
+            }
         }
 
         // 📎 파일 첨부 기능 관련 함수들
-        let attachedFiles = [];
+        window.attachedFiles = window.attachedFiles || [];
 
         // 파일 선택 처리
         function handleFileSelect(event) {
@@ -5362,12 +5541,12 @@
                 }
 
                 // 중복 파일 체크
-                if (attachedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                if (window.attachedFiles.some(f => f.name === file.name && f.size === file.size)) {
                     alert(`⚠️ 이미 첨부된 파일입니다: ${file.name}`);
                     return;
                 }
 
-                attachedFiles.push(file);
+                window.attachedFiles.push(file);
                 updateFileList();
             });
         }
@@ -5377,15 +5556,15 @@
             const fileList = document.getElementById('fileList');
             const fileItems = document.getElementById('fileItems');
 
-            if (attachedFiles.length === 0) {
-                fileList.style.display = 'none';
+            if (!window.attachedFiles || window.attachedFiles.length === 0) {
+                if (fileList) fileList.style.display = 'none';
                 return;
             }
 
-            fileList.style.display = 'block';
-            fileItems.innerHTML = '';
+            if (fileList) fileList.style.display = 'block';
+            if (fileItems) fileItems.innerHTML = '';
 
-            attachedFiles.forEach((file, index) => {
+            window.attachedFiles.forEach((file, index) => {
                 const fileItem = document.createElement('div');
                 fileItem.style.cssText = `
                     display: flex; 
@@ -5435,8 +5614,10 @@
 
         // 파일 제거
         function removeFile(index) {
-            attachedFiles.splice(index, 1);
-            updateFileList();
+            if (window.attachedFiles) {
+                window.attachedFiles.splice(index, 1);
+                updateFileList();
+            }
         }
 
         // 파일 아이콘 반환
@@ -5508,12 +5689,12 @@
                 </button>
 
                 <!-- 3. 경매활용 진단 -->
-                <button onclick="showDiagnosticSurvey(3)" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; padding: 25px 20px; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden;"
+                <button onclick="showDiagnosticSurvey(3)" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #000; border: none; padding: 25px 20px; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden;"
                         onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(79, 172, 254, 0.4)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                     <div style="font-size: 2rem; margin-bottom: 10px;">🏭</div>
-                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700;">공장구매 진단</h3>
-                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">투자 타당성 체크</p>
+                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700; color: #000;">공장구매 진단</h3>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.8; color: #000;">투자 타당성 체크</p>
                 </button>
 
                 <!-- 4. 웹사이트 진단 -->
@@ -5544,12 +5725,12 @@
                 </button>
 
                 <!-- 7. 일터혁신 진단 -->
-                <button onclick="showDiagnosticSurvey(7)" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: white; border: none; padding: 25px 20px; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden;"
+                <button onclick="showDiagnosticSurvey(7)" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #000; border: none; padding: 25px 20px; border-radius: 15px; cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden;"
                         onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(255, 154, 158, 0.4)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                     <div style="font-size: 2rem; margin-bottom: 10px;">🤝</div>
-                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700;">조직혁신 진단</h3>
-                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">조직 문화 체크</p>
+                    <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700; color: #000;">조직혁신 진단</h3>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.8; color: #000;">조직 문화 체크</p>
                 </button>
             </div>
 
