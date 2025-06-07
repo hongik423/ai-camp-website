@@ -4748,13 +4748,15 @@
             }
             
             try {
-                // 실제 Google Apps Script URL (플레이스홀더)
-                const scriptURL = 'https://script.google.com/macros/s/PLACEHOLDER_DIAGNOSTIC_URL/exec';
+                // 실제 Google Apps Script URL - 설문 데이터 처리용
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbyTU1AyEwwmp4sOLrafLKmTYzmszy7Y1Gla2LPXtc106RzS5k3DtzosOMOHwdhj_-37eQ/exec';
                 
                 const payload = {
-                    type: 'diagnostic',
+                    type: 'survey',
                     data: data
                 };
+
+                console.log('📡 전송할 페이로드:', payload);
 
                 const response = await fetch(scriptURL, {
                     method: 'POST',
@@ -4766,10 +4768,11 @@
                 });
 
                 if (response.ok) {
-                    console.log('✅ 진단 데이터 전송 성공');
+                    const result = await response.json();
+                    console.log('✅ 진단 데이터 전송 성공:', result);
                     return true;
                 } else {
-                    console.error('❌ 진단 데이터 응답 오류:', response.status);
+                    console.error('❌ 진단 데이터 응답 오류:', response.status, await response.text());
                     return false;
                 }
             } catch (error) {
@@ -5441,13 +5444,15 @@
             }
             
             try {
-                // 실제 Google Apps Script URL (플레이스홀더)
-                const scriptURL = 'https://script.google.com/macros/s/PLACEHOLDER_URL/exec';
+                // 실제 Google Apps Script URL - 상담신청 데이터 처리용
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwLNNLXHJT1H7smyHxPJHCvEru5PSb4fGYt5vzVaSqXptuJT1YjxxLP-VWjYa8duYKZ/exec';
                 
                 const payload = {
                     type: 'consultation',
                     data: data
                 };
+
+                console.log('📡 전송할 상담신청 페이로드:', payload);
 
                 const response = await fetch(scriptURL, {
                     method: 'POST',
@@ -5459,10 +5464,11 @@
                 });
 
                 if (response.ok) {
-                    console.log('✅ 구글시트 전송 성공');
+                    const result = await response.json();
+                    console.log('✅ 구글시트 전송 성공:', result);
                     return true;
                 } else {
-                    console.error('❌ 구글시트 응답 오류:', response.status);
+                    console.error('❌ 구글시트 응답 오류:', response.status, await response.text());
                     return false;
                 }
             } catch (error) {
